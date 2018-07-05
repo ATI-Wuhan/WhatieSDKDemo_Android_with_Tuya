@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+   <include
+      android:id="@+id/about_title"
+      layout="@layout/layout_title"/>
+
+  <LinearLayout
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="190dp"
+      android:background="@drawable/selector_white_item"
+      android:layout_margin="@dimen/padding_10dp"
+      android:paddingLeft="@dimen/device_item_padding_left_right"
+      android:paddingRight="@dimen/device_item_padding_left_right"
+      android:paddingBottom="@dimen/device_item_padding_top_bottom"
+      android:paddingTop="@dimen/device_item_padding_top_bottom">
+
+
+
+    <ImageView
+        android:id="@+id/iv_integration"
+        android:layout_width="335dp"
+        android:layout_height="175dp"
+        android:scaleType="fitCenter"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_amazon"/>
+
+
+</LinearLayout>
+    </LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_change_pwd_back"
+            android:layout_width="@dimen/sign_close_scale"
+            android:layout_height="@dimen/sign_close_scale"
+            android:layout_marginStart="@dimen/sign_cancel_left"
+            android:layout_marginTop="@dimen/sign_cancel_top"
+            android:src="@drawable/ic_close"/>
+        <TextView
+            android:layout_width="@dimen/sign_tip_width"
+            android:layout_height="41dp"
+            android:text="@string/change_password_title"
+            android:layout_marginTop="@dimen/sign_label_top"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_28sp"
+            android:textColor="@color/word_black"/>
+        <TextView
+            android:layout_width="@dimen/sign_tip_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/change_password_msg"
+            android:textColor="@color/word_black"
+            android:textSize="@dimen/text_14sp"/>
+        <EditText
+            android:id="@+id/et_change_pwd_old"
+            android:layout_width="@dimen/sign_tip_width"
+            android:layout_height="@dimen/sign_email_height"
+            android:layout_marginTop="@dimen/change_pwd_old_margin_top"
+            android:paddingLeft="@dimen/padding_10dp"
+            android:textSize="@dimen/text_14sp"
+            android:layout_gravity="center"
+            android:inputType="textPassword"
+            android:hint="@string/change_password_hint_old"
+            android:background="@drawable/shape_sign_input"/>
+        <EditText
+            android:id="@+id/et_change_pwd_new"
+            android:layout_width="@dimen/sign_tip_width"
+            android:layout_height="@dimen/sign_email_height"
+            android:layout_marginTop="@dimen/padding_20dp"
+            android:paddingLeft="@dimen/padding_10dp"
+            android:textSize="@dimen/text_14sp"
+            android:layout_gravity="center"
+            android:inputType="textPassword"
+
+            android:hint="@string/change_password_hint_new"
+            android:background="@drawable/shape_sign_input"/>
+
+        <EditText
+            android:id="@+id/et_change_pwd_confirm_new"
+            android:layout_width="@dimen/sign_tip_width"
+            android:layout_height="@dimen/sign_email_height"
+            android:layout_marginTop="@dimen/padding_20dp"
+            android:paddingLeft="@dimen/padding_10dp"
+            android:textSize="@dimen/text_14sp"
+            android:layout_gravity="center"
+            android:inputType="textPassword"
+            android:hint="@string/change_password_hint_confirm_new"
+            android:background="@drawable/shape_sign_input"/>
+
+        <TextView
+            android:id="@+id/tv_change_pwd_submit"
+            android:layout_marginLeft="@dimen/padding_20dp"
+            android:layout_marginRight="@dimen/padding_20dp"
+            android:layout_marginTop="@dimen/sign_in_top"
+            style="@style/ConfirmButton"
+            android:text="@string/change_password_submit"/>
+    </LinearLayout>
+</LinearLayout>

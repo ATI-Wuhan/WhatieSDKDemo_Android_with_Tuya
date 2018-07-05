@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.whatie.ati.androiddemo"
+    >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" android:required="false" />
+
+    <application
+        android:name=".application.WhatieApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        tools:replace="icon,label,theme"
+        android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="appId"
+            android:value="\ 4601134601" />
+        <meta-data
+            android:name="secretKey"
+            android:value="c5cb80b69c5af7e41baded615391bbc0" />
+        <meta-data
+            android:name="TUYA_SMART_APPKEY"
+            android:value="gff8jtdsqnrgx9dg7v87" />
+        <meta-data
+            android:name="TUYA_SMART_SECRET"
+            android:value="hy7mpex7hjvyeywfrtn35mvs9p7y5cdx" />
+
+        <activity
+            android:name=".views.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.ProductionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.SmartconfigActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.DeviceDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ShareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ChangePwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.SharedDeviceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.TimerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.TimeSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.QRCodeShowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ChangeDeviceNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ChangeNickNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.SetNewPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.FeedBackListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.AddFeedBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.LightDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.FlowColorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ConfirmDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.DeviceSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.PersonalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.IntegrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.IntegrationAmazonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.HelpAndFActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.TimeTypeActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service android:name="com.d9lab.ati.whatiesdk.mqtt.MyMqttService" />
+        <service android:name="com.d9lab.ati.whatiesdk.tcp.TcpService" />
+        <service android:name="com.d9lab.ati.whatiesdk.udp.UdpService" />
+
+        <receiver android:name="com.tuya.smart.android.base.broadcast.NetworkBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.tuya.smart.android.hardware.service.GwBroadcastMonitorService"
+            android:exported="true"
+            android:label="UDPService"
+            android:process=":monitor">
+            <intent-filter>
+                <action android:name="tuya.intent.action.udp" />
+
+                <category android:name="tuya" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.tuya.smart.android.hardware.service.DevTransferService"
+            android:label="TCPService">
+            <intent-filter>
+                <action android:name="tuya.intent.action.tcp" />
+                <category android:name="tuya" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

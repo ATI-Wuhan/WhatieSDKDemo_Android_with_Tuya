@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/main_title"
+            layout="@layout/layout_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_height"
+                android:text="@string/feedback_title"
+                android:textSize="@dimen/text_16sp"
+                android:textColor="@color/word_black"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_18sp"
+                android:layout_gravity="center"
+                android:padding="@dimen/inner_margin2"
+                android:background="@drawable/shape_feedback">
+                <TextView
+                    android:id="@+id/tv_help_feed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feedback_label"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_help_feed"
+                    android:layout_marginTop="@dimen/frame_top"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_12sp"
+                    android:text="@string/feedback_text"
+                    android:lineSpacingExtra="@dimen/line_spacing"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_18sp"
+                android:layout_gravity="center"
+                android:padding="@dimen/inner_margin2"
+                android:background="@drawable/shape_feedback">
+                <TextView
+                    android:id="@+id/tv_help_feed2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feedback_label2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_help_feed2"
+                    android:layout_marginTop="@dimen/frame_top"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_12sp"
+                    android:text="@string/feedback_text2"
+                    android:lineSpacingExtra="@dimen/line_spacing"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_help_submit"
+        style="@style/ConfirmButton"
+        android:layout_marginRight="@dimen/padding_20dp"
+        android:layout_marginLeft="@dimen/padding_20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/frame_margin1"
+        android:text="@string/submit_btn"
+        android:gravity="center"/>
+
+</RelativeLayout>

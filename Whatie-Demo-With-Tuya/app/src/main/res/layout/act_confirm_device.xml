@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_confirm_wifi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_18dp"
+        android:paddingRight="@dimen/padding_18dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_adding_device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/text_18sp"
+            android:layout_marginTop="@dimen/padding_45dp"
+            android:textColor="@color/main_title"
+            android:text="@string/confirm_socket" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/padding_75dp"
+            android:paddingTop="@dimen/padding_16dp">
+
+            <ImageView
+                android:id="@+id/iv_confirm_network_gif"
+                android:layout_width="match_parent"
+                android:layout_height="209dp"
+                android:paddingBottom="@dimen/padding_30dp"
+                android:src="@drawable/ic_confirm_network" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/indicator_desc"
+                android:textColor="@color/main_text"
+                android:paddingTop="@dimen/padding_5dp"
+                android:paddingBottom="@dimen/padding_5dp"
+                android:textSize="@dimen/text_14sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14sp"
+                android:paddingTop="@dimen/padding_5dp"
+                android:paddingBottom="@dimen/padding_5dp"
+                android:text="@string/indicator_reminder"
+                android:textColor="@color/main_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14sp"
+                android:paddingTop="@dimen/padding_5dp"
+                android:paddingBottom="@dimen/padding_5dp"
+                android:text="@string/indicator_reminder2"
+                android:textColor="@color/main_text" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_adding_device_next"
+            style="@style/ConfirmButton"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:text="@string/adding_device_next" />
+    </LinearLayout>
+</LinearLayout>

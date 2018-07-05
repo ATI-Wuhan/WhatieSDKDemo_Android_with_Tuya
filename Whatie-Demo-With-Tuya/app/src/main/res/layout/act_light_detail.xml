@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/light_detail_title"
+        layout="@layout/layout_title" />
+
+    <Button
+        android:id="@+id/btn_light_detail_power"
+        android:layout_width="@dimen/light_power_button_diameter"
+        android:layout_height="@dimen/light_power_button_diameter"
+        android:background="@drawable/bg_light_power_open"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/padding_24dp"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="false"/>
+
+    <LinearLayout
+        android:id="@+id/rl_navigation_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_2dp"
+        android:layout_below="@+id/light_detail_title"
+        android:background="@color/main_theme_background"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_white_button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/light_tab_height"
+            android:layout_weight="1"
+            android:background="@drawable/bg_light_detail_tab"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_light_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10dp"
+                android:src="@drawable/ic_light_white" />
+
+            <TextView
+                android:id="@+id/tv_light_white"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/padding_12dp"
+                android:layout_marginBottom="@dimen/padding_4dp"
+                android:gravity="bottom"
+                android:text="@string/light_detail_kl"
+                android:textColor="@color/main_text"
+                android:textSize="@dimen/text_10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/padding_2dp"
+            android:layout_height="@dimen/light_tab_height"/>
+
+        <LinearLayout
+            android:id="@+id/ll_rgbl_button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/light_tab_height"
+            android:layout_weight="1"
+            android:background="@drawable/bg_light_detail_tab"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_light_rgbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10dp"
+                android:src="@drawable/ic_light_rgbl" />
+
+            <TextView
+                android:id="@+id/tv_light_rgbl"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/padding_12dp"
+                android:layout_marginBottom="@dimen/padding_4dp"
+                android:gravity="bottom"
+                android:text="@string/light_detail_rgbl"
+                android:textColor="@color/main_text"
+                android:textSize="@dimen/text_10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/padding_2dp"
+            android:layout_height="@dimen/light_tab_height"/>
+
+        <LinearLayout
+            android:id="@+id/ll_flow_button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/light_tab_height"
+            android:layout_weight="1"
+            android:background="@drawable/bg_light_detail_tab"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_light_flow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10dp"
+                android:src="@drawable/ic_light_flow" />
+
+            <TextView
+                android:id="@+id/tv_light_flow"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/padding_12dp"
+                android:layout_marginBottom="@dimen/padding_4dp"
+                android:gravity="bottom"
+                android:text="@string/light_detail_flow"
+                android:textColor="@color/main_text"
+                android:textSize="@dimen/text_10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_theme_background"
+        android:layout_below="@id/rl_navigation_tab" />
+
+    <View
+        android:id="@+id/view_shelter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_shelter"
+        android:visibility="gone"
+        android:layout_below="@id/light_detail_title"
+        />
+
+    <TextView
+        android:id="@+id/tv_rom_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_10sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/navibar_text_color"
+        />
+
+</RelativeLayout>

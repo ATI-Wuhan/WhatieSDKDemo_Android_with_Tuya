@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_dlg_loading"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.whatie.ati.androiddemo.widget.spinnerview.SpinView
+        android:id="@+id/sv_dlg_loading"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_dlg_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="10dp"
+        android:text="@string/dialog_loading"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+</LinearLayout>

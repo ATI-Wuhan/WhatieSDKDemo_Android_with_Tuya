@@ -1,0 +1,561 @@
+<resources>
+    <string name="app_name">eHome</string>
+
+    <!--首页（无设备）-->
+    <string name="no_device_title">无设备</string>
+    <string name="no_device_describe">没有设备，请添加</string>
+    <string name="add_device_button">添加设备</string>
+    <string name="main_home">家庭</string>
+    <string name="main_room">房间</string>
+    <string name="main_profile">用户</string>
+
+    <!--登录-->
+    <string name="sign_label">登录</string>
+    <string name="sign_tip">使用您的电子邮箱地址</string>
+    <string name="sign_email">电子邮箱</string>
+    <string name="sign_password">密码</string>
+    <string name="sign_forgot">忘记密码</string>
+    <string name="sign_in">登录</string>
+    <string name="sign_up">没有账户？ </string>
+    <string name="sign_register">注册</string>
+    <string name="sign_in_empty">电子邮箱或密码不为空</string>
+
+    <!--注册-->
+    <string name="sign_up_label">注册</string>
+    <string name="sign_up_tip">请输入您的电子邮件和密码。</string>
+    <string name="sign_ev_email">\ 请输入您的电子邮箱地址。</string>
+    <string name="sign_up_pin">验证码</string>
+    <string name="sign_up_enter_pin">\ 请输入您的验证码</string>
+    <string name="sign_up_send">发送</string>
+    <string name="sign_up_btn">注册</string>
+    <string name="sign_up_terms">点击注册，即表示您同意我们的</string>
+    <string name="sign_terms">条款和</string>
+    <string name="sign_up_conditions">条件</string>
+    <string name="sign_up_match">密码不匹配</string>
+    <string name="sign_up_password">密码不可为空</string>
+
+    <!--设置密码-->
+    <string name="set_p_label">设置密码</string>
+    <string name="set_p_tip">请设置您的登录密码</string>
+    <string name="set_p_account">\ zhouwei20150901@gmail.com</string>
+    <string name="set_password">\ 密码</string>
+    <string name="set_p_confirm">\ 确认密码</string>
+    <string name="set_start">开始</string>
+
+    <!--条款-->
+    <string name="terms_terms">条款</string>
+
+    <!--个人中心-->
+    <string name="profile_title">个人中心</string>
+    <string name="profile_name">用户名</string>
+    <string name="profile_menu_device_homes">我的家庭</string>
+    <string name="profile_menu_device_list">我的设备</string>
+    <string name="profile_menu_device_sharing">设备共享</string>
+    <string name="profile_menu_integration">第三方接入</string>
+    <string name="profile_menu_virtual_center">体验中心</string>
+    <string name="profile_menu_help_feedback">帮助 &#38; 反馈</string>
+    <string name="profile_menu_setting">设置</string>
+    <string name="connection_lost">%1$s 与 %2$s 失去联系 </string>
+    <string name="messageRecieved">收到的消息 %1$s &lt;br/&gt; &lt;small&gt;主题: %2$s &lt;/small&gt; </string>
+    <string name="toast_pub_success">发布消息: %1$s to 主题: %2$s</string>
+    <string name="toast_sub_success">订阅 %1$s</string>
+    <string name="toast_disconnected">断开</string>
+    <string name="toast_pub_failed">发送消息失败: %1$s 主题为: %2$s</string>
+    <string name="toast_sub_failed">订阅失败 %1$s</string>
+    <string name="timestamp">&lt;br/&gt; &lt;small&gt; %1$s &lt;/small&gt;</string>
+    <string name="connection_connected_to">连接到</string>
+    <string name="connection_disconnected_from">断开连接</string>
+    <string name="connection_unknown_status">未知的连接状态</string>
+    <string name="connection_connecting_to">正在连接</string>
+    <string name="connection_disconnecting_from">正在断开连接</string>
+    <string name="connection_error_connecting_to">连接时发生错误</string>
+    <string name="connection_clear">清除</string>
+    <string name="permissions_failed">部分权限被拒绝。</string>
+
+
+    <!--设置-->
+    <string name="setting_title">通用</string>
+    <string name="setting_choice1">语言</string>
+    <string name="setting_choice2">清除eHome存储</string>
+    <string name="setting_title2">关于我们</string>
+    <string name="setting_choice3">关于我们</string>
+    <string name="about_condition_title">服务协议</string>
+    <string name="about_featrue_title">功能</string>
+    <string name="Setting_title">设置</string>
+
+    <!--第三方接入-->
+    <string name="Use_Echo">使用Echo</string>
+    <string name="integration">第三方接入</string>
+
+    <!--关于-->
+    <string name="about_title">eHome 1.0</string>
+    <string name="about_choice">功能</string>
+    <string name="about_choice2">更新APP</string>
+    <string name="about_choice3">服务协议</string>
+    <string name="about_right_reserved">©2017-2018 ehome.com. 版权所有。</string>
+    <string name="about_app_version">eHome  </string>
+    <string name="about_update_question">肯确定要更新到最新版本？</string>
+
+    <!--个人中心-->
+    <string name="personal_name">用户名</string>
+    <string name="personal_email">电子邮件</string>
+    <string name="personal_login">登录</string>
+    <string name="personal_logout">注销</string>
+    <string name="personal_change_password">修改登录密码</string>
+    <string name="scanQR_code">请扫描QR码</string>
+    <string name="profile_Update">更新</string>
+    <string name="profile_update">更新</string>
+    <string name="profile_update_tip">eHome 有了新版本。</string>
+    <string name="download_title">正在下载...</string>
+    <string name="download_cancel">取消</string>
+    <string name="my_device_title">我的设备</string>
+    <string name="profile_change_name_title">修改用户名</string>
+    <string name="profile_change_your_name_title">请修改您的用户名</string>
+    <string name="personal_title">个人中心</string>
+    <string name="confirm_exit_title">注销</string>
+    <string name="confirm_exit_tip">肯定要注销？</string>
+    <string name="product_list_title">添加设备</string>
+    <string name="permission_failed">存储权限被拒绝</string>
+
+    <!--家庭-->
+    <string name="home_choice_list_title">家庭</string>
+    <string name="home_choice_list_title_right">编辑</string>
+    <string name="home_add_title">新家庭</string>
+    <string name="home_add_title_right">完成</string>
+    <string name="home_edit_title">家庭</string>
+    <string name="home_edit_title_right">完成</string>
+
+    <!--家庭编辑-->
+    <string name="home_edit_member">成员</string>
+    <string name="home_edit_host">管理员</string>
+    <string name="home_edit_deny">普通成员没有操作权限</string>
+    <string name="home_edit_invite">邀请其他家庭成员</string>
+
+    <!--二维码显示界面-->
+    <string name="qrcode_show_invite_title">邀请成员</string>
+    <string name="qrcode_show_share_device">分享设备</string>
+    <string name="qrcode_show_transfer_home">转让家庭</string>
+
+    <!--帮助与反馈-->
+    <string name="feedback_title">猜你正在填写反馈意见...</string>
+    <string name="feedback_label">我没有看见我的设备</string>
+    <string name="feedback_text">请验证您的设备:\n● 是在这个移动设备20英尺内\n● 开启电源，白色指示灯亮起…</string>
+    <string name="feedback_label2">关于这个家庭app</string>
+    <string name="feedback_text2">家庭应用程序可以帮助您控制您的设备，如灯，开关，插座等。它可以巧妙地让你的家...</string>
+    <string name="submit_btn">提交反馈</string>
+    <string name="feedback">反馈</string>
+    <string name="Feedback">反馈</string>
+    <string name="feedback_photo">最多添加三张图片</string>
+    <string name="help_feedback_title">帮助 &#38; 反馈</string>
+
+
+    <!--反馈-->
+    <string name="hint">请在这里写下您的反馈...</string>
+    <string name="screenshot">屏幕截图或照片</string>
+    <string name="tip">来自:</string>
+    <string name="feedback_from">来自:</string>
+    <string name="feedback_submit">提交</string>
+    <string name="feedback_tip">反馈不能为空</string>
+
+    <!--添加设备-->
+    <string name="adding_device_next">下一步</string>
+    <string name="confirm_home_wifi">确认家庭Wifi</string>
+    <string name="current_wifi">当前wifi:</string>
+    <string name="current_wifi_name">未知的ssid</string>
+    <string name="wifi_password_hint">请输入wifi密码</string>
+    <string name="get_started_device_name_title">设备名</string>
+    <string name="get_started_device_name">公牛插座</string>
+    <string name="get_started_button">开始</string>
+    <string name="device_settings_share">分享</string>
+    <string name="device_settings_delete_title">删除</string>
+    <string name="device_settings_unbind_title">解除绑定</string>
+    <string name="device_settings_delete">删除</string>
+    <string name="device_settings_unbind">解除绑定</string>
+    <string name="device_settings_share_desc">将设备分享给朋友</string>
+    <string name="adding_device_please_wait">请稍候</string>
+    <string name="adding_device_wait_desc">您的智能设备即将推出</string>
+    <string name="adding_progress_step_1">1.设备已被搜索</string>
+    <string name="adding_progress_step_2">2.设备正在注册到eHome云平台</string>
+    <string name="adding_progress_step_3">3.开始添加设备...</string>
+    <string name="device_shared_qrcode_title">扫描并分享</string>
+    <string name="device_shared_qrcode_desc">邀请朋友分享设备!</string>
+    <string name="device_name_change">确认</string>
+    <string name="indicator_desc">1.确认指示灯快速闪烁。</string>
+    <string name="indicator_reminder">2.如果指示灯不闪烁，请按住重置按钮5秒钟。</string>
+    <string name="indicator_reminder2">3.请在2.4G WiFi网络下配网。</string>
+    <string name="confirm_socket">BULL智能插座</string>
+    <string name="confirm_plug">broadlink插头</string>
+    <string name="no_divice">没有设备</string>
+    <string name="no_production">没有产品</string>
+    <string name="adding_device_device_near">确保您的设备靠近您的手机</string>
+    <string name="belong_to_home">位于</string>
+    <string name="belong_to_default_room">默认房间</string>
+    <string name="belong_to_default_home">家庭（默认）</string>
+
+    <!--修改用户名-->
+    <string name="change_name_title">修改您的用户名</string>
+    <string name="change_name_reminder">输入你想更改的用户名</string>
+    <string name="new_name_hint">新用户名</string>
+    <string name="change_name_button">确认</string>
+    <string name="change_name_tip">新用户名不可以为空。</string>
+
+    <!--修改用户昵称-->
+    <string name="change_nickname_success">昵称修改成功</string>
+    <string name="change_nickname_fail">昵称修改失败</string>
+    <string name="change_nickname_cannot_empty">昵称不可为空</string>
+    <string name="toast_network_error">网络错误</string>
+
+    <!--忘记密码+修改密码-->
+    <string name="recover_password_title">恢复登录密码</string>
+    <string name="recover_password_reminder">输入您想要恢复的帐户。</string>
+    <string name="change_password_title">更改登录密码</string>
+    <string name="change_password_msg">使用您的旧密码</string>
+    <string name="change_password_hint">电子邮箱地址</string>
+    <string name="change_password_hint_old">旧密码</string>
+    <string name="change_password_hint_new">新密码</string>
+    <string name="change_password_hint_confirm_new">确认新密码</string>
+    <string name="change_password_submit">提交</string>
+    <string name="change_password_tip">密码不可以为空。</string>
+    <string name="change_password_match">密码不匹配</string>
+    <string name="forget_password_tip">电子邮箱或验证码不可以为空</string>
+    <string name="forget_password_email">电子邮箱不可以为空</string>
+
+
+    <!--修改密码邮箱认证-->
+    <string name="change_password_verification_email">电子邮件验证</string>
+    <string name="change_password_verification_reminder">请从电子邮件输入验证码以继续。</string>
+    <string name="change_password_verification_hint">验证码</string>
+
+    <!--设置新密码-->
+    <string name="set_new_password_title">设置新密码</string>
+    <string name="set_new_password_reminder">请设置您的登录密码</string>
+    <string name="set_new_password_button">确认</string>
+    <string name="set_new_password_hint1">新密码</string>
+    <string name="set_new_password_hint2">确认密码</string>
+
+    <!--下载框-->
+    <string name="dialog_download_tittle">对话框标题</string>
+    <string name="dialog_download_cancel">取消</string>
+
+    <!--加载框-->
+    <string name="dialog_loading">  加载中...</string>
+
+    <!--设备列表-->
+    <string name="device_list_name">设备名</string>
+    <string name="device_list_state">开启</string>
+    <string name="device_locate">位于 </string>
+
+    <!--产品种类-->
+    <string name="product_type_name">产品名</string>
+
+    <!--标题-->
+    <string name="title_back">返回</string>
+    <string name="title_title">标题</string>
+
+    <!--wifi链接-->
+    <string name="pop_connect_wifi">请链接2.4G WIFI</string>
+    <string name="pop_connect_button">连接</string>
+
+
+    <!--确定设备-->
+    <string name="confirm_device_title">确认</string>
+    <string name="device_add_title">添加设备</string>
+    <string name="device_add_question">确定取消这个添加？</string>
+    <string name="device_add_failed">添加失败</string>
+    <string name="device_add_failed_tip">FAQ:\n*设备未处于配网模式\n*WIFI密码输入错误\n*设备连接的网络信号很差\n*您需要确保使用2G频谱将设备添加到无线网络</string>
+    <string name="device_add_success">添加成功</string>
+    <string name="device_add_success_tip">搜索设备</string>
+    <string name="device_add_already_bind">此设备已绑定</string>
+    <string name="device_add_device_name">设备名称：</string>
+    <string name="device_add_connect">您可以访问该帐户：</string>
+    <string name="device_add_connect_2"> 为您分享设备或解除绑定设备。</string>
+
+    <!--控制设备-->
+    <string name="device_control_title">设备详情</string>
+    <string name="change_device_title">更改设备名称</string>
+    <string name="device_setting_title">设备设置</string>
+    <string name="device_shared_title">设备共享</string>
+    <string name="device_started_title">开始使用</string>
+    <string name="device_control_lost">连接丢失。</string>
+    <string name="device_control_change">设备状态已更改。</string>
+    <string name="device_setting_name">设备名称不能为空。</string>
+    <string name="device_delete_failed">设备删除失败</string>
+    <string name="device_unbind">解绑成功！</string>
+    <string name="device_switch">开关</string>
+    <string name="device_alarm">定时</string>
+    <string name="device_countdown">倒计时</string>
+    <string name="device_name">设备名称</string>
+    <string name="device_detail_on">设备已开</string>
+    <string name="device_detail_off">设备已关</string>
+    <string name="device_delete_title">删除</string>
+    <string name="device_delete_content">确认删除设备？</string>
+    <string name="device_unbind_title">解绑</string>
+    <string name="device_unbind_content">确认解绑设备?</string>
+    <string name="device_switch_open">开</string>
+    <string name="device_switch_close">关</string>
+    <string name="device_option">选项</string>
+
+    <!--灯泡相关-->
+    <string name="light_detail_rgbl">RGB单色光</string>
+    <string name="light_detail_flow">流光</string>
+    <string name="light_detail_kl">白光</string>
+    <string name="light_detail_title">灯泡控制</string>
+    <string name="adjust_color">调整颜色</string>
+    <string name="adjust_light">调整亮度</string>
+    <string name="adjust_frequency">设置频率</string>
+    <string name="modify_flow_color">修改颜色</string>
+    <string name="light_flow_setting">设置</string>
+    <string name="flow_detail_apply">应用</string>
+    <string name="set_flow_success">设置成功!</string>
+    <string name="set_flow_failed">设置失败</string>
+
+    <string name="action_settings">设置</string>
+    <string name="sign_up_tip_string">请输入您的电子邮箱及密码</string>
+    <string name="log_in_email">请输入您的电子邮箱</string>
+    <string name="log_in_change_pwd">修改密码</string>
+    <string name="log_in_forget_pwd">忘记密码</string>
+    <string name="log_in_password">请输入您的密码.</string>
+    <string name="change_password_old_text">旧密码</string>
+    <string name="change_password_old">请输入您的旧密码</string>
+    <string name="change_password_new_text">新密码</string>
+    <string name="change_password_new">请输入您的新密码</string>
+    <string name="profile_update_pwd">更改登录密码</string>
+    <string name="receive_shared_device">收到的分享</string>
+    <string name="profile_feedback">反馈</string>
+    <string name="profile_log_out">注销</string>
+
+
+    <!--定时列表-->
+    <string name="alarm_list_title">定时</string>
+    <string name="alarm_add">添加</string>
+
+    <!--设备列表-->
+    <string name="device_list_title">家庭</string>
+    <string name="device_list_add">添加</string>
+    <string name="device_on">开</string>
+    <string name="device_off">关</string>
+    <string name="device_offline">离线</string>
+    <string name="device_is_offline">设备处于脱机状态，无法控制它。长按更改名称或将其删除。</string>
+    <string name="production_list_tip">没有更多产品</string>
+    <string name="long_click_delete">删除</string>
+    <string name="long_click_change_name">更改名称</string>
+
+    <!--更新-->
+    <string name="version_latest">当前是最新版本</string>
+    <string name="version_no_new">没有新的版本</string>
+    <string name="update_failed">更新失败</string>
+
+    <!--网络-->
+    <string name="toast">提示</string>
+    <string name="pop_select_photo_tip1">从相册中选择</string>
+    <string name="pop_select_photo_tip2">相机</string>
+    <string name="pop_mqtt_pub_on">开</string>
+    <string name="pop_mqtt_pub_off">关</string>
+    <string name="pop_mqtt_pub_unbind">解绑</string>
+    <string name="pop_input_wifi_ssid">未知的ssid</string>
+    <string name="pop_input_wifi_next">下一步</string>
+    <string name="pop_input_wifi_change">更改WIFI</string>
+
+    <!--房间编辑-->
+    <string name="room_edit_tip1">房间</string>
+    <string name="room_edit_default">默认房间</string>
+    <string name="room_edit_living">客厅</string>
+    <string name="room_edit_bedroom">卧室</string>
+    <string name="room_edit_kitchen">厨房</string>
+    <string name="room_edit_tip2">添加新的房间</string>
+    <string name="room_edit_add">添加房间...</string>
+    <string name="single_room_edit_name">房间名称</string>
+    <string name="single_room_edit_background">背景</string>
+    <string name="single_room_edit_delete">删除房间</string>
+    <string name="single_room_delete">删除房间</string>
+    <string name="item_room_name">房间名称</string>
+    <string name="item_room_nodevice">无设备</string>
+
+
+    <!--房间详情-->
+    <string name="room_detail_tip1">编辑</string>
+    <string name="room_detail_tip2">本房间信息</string>
+    <string name="room_detail_edit_name">编辑名称</string>
+    <string name="room_detail_change_bg">更改背景</string>
+    <string name="room_detail_delete">删除房间</string>
+    <string name="room_detail_cancel">取消</string>
+    <string name="room_bg_add">选择背景</string>
+
+
+    <!--家庭-->
+    <string name="home_choice_title">家庭</string>
+    <string name="home_choice_add_title">创建一个新的家庭</string>
+    <string name="home_choice_add_button">新建家庭...</string>
+    <string name="home_edit_home">家庭</string>
+    <string name="home_edit_title1">家庭名称</string>
+    <string name="home_edit_title2">家庭成员</string>
+    <string name="home_edit_title3">删除家庭</string>
+    <string name="home_edit_delete_button">删除家庭</string>
+    <string name="home_add_hint">如：IIdreams Home</string>
+
+
+    <!--单点登录-->
+    <string name="login_conflict_title">警告</string>
+    <string name="login_conflict_content">您的帐户已在其他地方登录</string>
+
+    <!--dialog-->
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_ok">确认</string>
+    <!--定时设置-->
+    <string name="time_day_setting_title"> 重复</string>
+
+
+    <!--倒计时-->
+    <string name="countdown_without_network">没有网络不能倒计时。</string>
+
+    <!--扫描二维码-->
+    <string name="error_qrcode">错误二维码</string>
+    <string name="qrcode_scan_information">您可以在用户->设备共享中找到已接收的设备。</string>
+    <string name="local_state">本地状态。无法删除或更改设备。</string>
+
+    <!--家庭管理员-->
+    <string name="home_administrator_transfer_title">转移管理员</string>
+    <string name="home_administrator_transfer_btn">转移管理员</string>
+    <string name="home_administrator_transfer_info">这个家庭将被转移到新的管理员。并且所有成员将被保留。</string>
+
+    <!--家庭成员-->
+    <string name="home_member_transfer">转移家庭</string>
+    <string name="home_member_set">设置为管理员</string>
+    <string name="home_member_delete">删除家庭成员</string>
+    <string name="home_member_delete_button">删除家庭成员</string>
+
+    <!--产品类型列表-->
+    <string name="product_type_list_none">没有产品</string>
+    <!--房间编辑-->
+    <string name="room_edit_footer">添加一个新房间</string>
+    <!--增加定时-->
+    <string name="timer_add_tag">标签</string>
+    <string name="timer_add_repeat">重复</string>
+    <string name="timer_add_never">仅一次</string>
+    <string name="timer_add_state">设备状态</string>
+
+    <!--更改定时-->
+    <string name="timer_change_repeat">重复</string>
+    <string name="timer_change_never">永不</string>
+    <string name="timer_change_state">状态</string>
+
+    <!--定时时间-->
+    <string name="timer_day_sunday">星期日</string>
+    <string name="timer_day_monday">星期一</string>
+    <string name="timer_day_tuesday">星期二</string>
+    <string name="timer_day_wednesday">星期三</string>
+    <string name="timer_day_thursday">星期四</string>
+    <string name="timer_day_friday">星期五</string>
+    <string name="timer_day_saturday">星期六</string>
+    <!--闹钟item-->
+    <string name="alarm_item_turn_on">打开</string>
+    <!--删除设备-->
+    <string name="delete_device">删除设备</string>
+    <string name="delete_device_success">设备删除成功！</string>
+    <string name="delete_device_sure">确认删除此设备？</string>
+    <string name="delete_device_cancel">取消</string>
+    <string name="delete_device_delete">删除</string>
+
+    <!--房间列表-->
+    <string name="room_list_title">房间</string>
+    <string name="room_list_add">添加</string>
+
+    <!--设备分享-->
+    <string name="device_sharing_title">设备分享</string>
+    <string name="device_sharing_left">返回</string>
+    <string name="device_sharing_received">收到的分享</string>
+    <string name="device_sharing_sent">发出的分享</string>
+    <string name="device_sharing_with_email">或者通过邮箱分享...</string>
+    <string name="sharing_key_email">请输入朋友的邮箱</string>
+    <string name="sharing_email_cannot_be_empty">邮箱不能为空.</string>
+    <string name="local_state_login_first">当前处于本地状态，请登录后再操作</string>
+    <string name="local_state_countdown">当前处于本地状态，不能设置倒计时和定时</string>
+
+    <string name="device_sharing_no_device_received">你还没有接收到其他人分享的设备</string>
+    <string name="device_sharing_no_device_sent">你还没有分享设备给其他人</string>
+
+
+    <!--定时设置-->
+    <string name="edit_timer_title">修改定时</string>
+    <string name="add_timer_title">添加定时</string>
+    <string name="timer_title_save">保存</string>
+    <string name="timer_title_cancel">返回</string>
+    <string name="everyday">每天</string>
+    <string name="only_once">仅一次</string>
+    <string name="never">仅一次</string>
+    <string name="hours">小时</string>
+    <string name="minutes">分钟</string>
+    <string name="countdown_hour">小时</string>
+    <string name="countdown_minutes">分钟</string>
+    <string name="delete_timer">删除</string>
+    <string name="delete_timer_content">确定删除此定时？</string>
+    <string name="no_timer_list">暂无定时数据</string>
+
+    <!--倒计时-->
+    <string name="alarms_without_network">本地状态下不可设置定时</string>
+
+    <!--异常提示-->
+    <string name="permission_camera">请开启相机权限</string>
+    <string name="permission_storage">请开启存储权限</string>
+    <string name="permission_location">请开启定位限</string>
+    <string name="permission_zxing">如果屏幕全黑，请开启相机权限后再尝试</string>
+
+    <!--ssl错误提示-->
+    <string name="ssl_warning_title">警告</string>
+    <string name="ssl_not_yet_valid">证书尚未生效，</string>
+    <string name="ssl_expired">证书已经过期，</string>
+    <string name="ssl_is_mismatch">主机名不匹配，</string>
+    <string name="ssl_untrusted">网站证书不受信任，</string>
+    <string name="ssl_date_invalid">证书日期无效，</string>
+    <string name="ssl_invalid">证书验证失败，</string>
+    <string name="ssl_handler_process">确定继续访问此网址吗?</string>
+    <string name="ssl_error">证书验证失败，</string>
+    <string name="ssl_error_confirm">继续访问</string>
+    <string name="ssl_error_cancel">取消</string>
+    <!--修改设备名-->
+    <string name="change_device_name_success">修改成功</string>
+    <string name="change_device_name_fail">修改失败</string>
+    <string name="change_device_name_cannot_empty">设备名不能为空！</string>
+    <!--设备详情-->
+    <string name="device_detail_delete">设备已删除</string>
+    <string name="device_detail_cannot_set_alarm">无法在本地状态下设置定时</string>
+    <!--设备列表-->
+    <string name="device_list_get_fail">获取设备失败</string>
+    <string name="device_list_offline">设备已离线</string>
+    <string name="forget_passwd_send_pin_success">发送验证码成功</string>
+    <string name="forget_passwd_send_pin_failed">发送验证码失败</string>
+    <string name="forget_passwd_verify_failed">验证失败</string>
+    <string name="forget_passwd_verify_success">验证成功</string>
+
+    <!--登录-->
+    <string name="login_cannot_empty">邮箱或密码不能为空</string>
+    <string name="login_auto_success">自动登录成功</string>
+    <string name="login_failed">登陆失败</string>
+
+    <!--产品列表-->
+    <string name="production_list">产品列表</string>
+    <string name="production_list_get_fail">获取产品列表失败</string>
+    <!--设置新密码-->
+    <string name="set_new_psw_success">设置新密码成功</string>
+    <string name="set_new_psw_fail">设置新密码失败</string>
+    <string name="toast_share_success">分享成功</string>
+    <string name="toast_share_fail">分享失败</string>
+
+    <string name="device_delete_fail">删除失败</string>
+    <!--注册-->
+    <string name="sign_up_success">注册成功</string>
+    <string name="sign_up_fail">注册失败</string>
+    <!--定时器列表-->
+    <string name="timer_list">定时列表</string>
+    <string name="timer_list_turn_on">打开</string>
+    <string name="timer_list_turn_off">关闭</string>
+
+    <!--pop-->
+    <string name="pop_change_device">更改设备名称</string>
+    <string name="pop_share_device">分享设备</string>
+    <string name="pop_remove_device">移除设备</string>
+    <string name="pop_cancel">取消</string>
+
+    <string name="share_device_enter">请输入朋友的电子邮件</string>
+</resources>
+

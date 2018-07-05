@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_theme_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/light_seekbar_card_height"
+        android:layout_marginTop="@dimen/padding_10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adjust_frequency"
+            android:layout_marginLeft="@dimen/padding_10dp"
+            android:layout_marginTop="@dimen/padding_12dp"
+            android:textColor="@color/light_detail_notice_text"
+            android:textSize="@dimen/text_16sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_flow_slow"
+                android:scaleType="fitEnd"/>
+
+            <SeekBar
+                android:id="@+id/sb_time"
+                style="@style/LightNormalSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:splitTrack="false"
+                android:max="9" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_flow_fast"
+                android:scaleType="fitStart"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/light_seekbar_card_height"
+        android:layout_marginTop="@dimen/padding_10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adjust_light"
+            android:layout_marginLeft="@dimen/padding_10dp"
+            android:layout_marginTop="@dimen/padding_12dp"
+            android:textColor="@color/light_detail_notice_text"
+            android:textSize="@dimen/text_16sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_light_dark"
+                android:scaleType="fitEnd"/>
+
+            <SeekBar
+                android:id="@+id/sb_light"
+                style="@style/LightNormalSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:splitTrack="false"
+                android:max="99" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_light_bright"
+                android:scaleType="fitStart"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_flow_to_detail"
+        android:layout_width="72dp"
+        android:layout_height="@dimen/padding_30dp"
+        android:background="@drawable/bg_flow_detail_btn"
+        android:text="@string/light_flow_setting"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_12sp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_30dp"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>
