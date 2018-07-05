@@ -321,7 +321,7 @@ public class SharedDeviceListActivity extends BaseActivity {
                             @Override
                             public void onSuccess(Response<BaseResponse> response) {
                                 if (response.body().isSuccess()) {
-                                    EHome.getInstance().removeDevice(item.getDevice().getDevId());
+                                    EHome.getInstance().removeSharedDevice(item.getDevice().getDevId());
                                     Toast.makeText(mContext, getString(R.string.device_detail_delete), Toast.LENGTH_SHORT).show();
                                     getDevices();
                                     mAdapter.notifyDataSetChanged();
@@ -378,7 +378,7 @@ public class SharedDeviceListActivity extends BaseActivity {
                         srlSharedDeviceList.setRefreshing(false);
 //                                Toast.makeText(mContext, "Device list is empty.", Toast.LENGTH_SHORT).show();
                         tvShareDeviceEmpty.setVisibility(View.VISIBLE);
-//                        mAdapter.replaceAll(response.body().getList());
+                        mAdapter.notifyDataSetChanged();
                     } else {
                         xrvSharedDeviceList.refreshComplete();
                         srlSharedDeviceList.setRefreshing(false);
