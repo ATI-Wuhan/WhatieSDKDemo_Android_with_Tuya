@@ -1,9 +1,9 @@
 
-## WahtieSDK for Android v1.3.3c updated at 2018-06-30
+## WahtieSDK for Android v1.3.5c updated at 2018-07-06
 
 ```
 What's new:
-Now SDK, DEMO APP, and SDK usage manual for bulbs are available. 
+Now you can add a timer with a category string. 
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
@@ -78,7 +78,7 @@ Configuring appId and secretKey in file AndroidManifest.xml, and configure the a
 
 ```java
 <application>
-<!— "\ " before appId! -->
+<!-- "\ " before appId! -->
         <meta-data
             android:name="appId"
             android:value="\ appId" />
@@ -87,7 +87,7 @@ Configuring appId and secretKey in file AndroidManifest.xml, and configure the a
             android:value="appSecretKey" />
 </application>
 
- <!—necessary permissions -->
+ <!-- necessary permissions -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -96,7 +96,7 @@ Configuring appId and secretKey in file AndroidManifest.xml, and configure the a
 <uses-permission android:name="android.permission.WAKE_LOCK"/>
 <uses-permission android:name="android.permission.CAMERA"/>
 
-<!—necessary services -->
+<!-- necessary services -->
 <service android:name="org.eclipse.paho.android.service.MqttService"/>
 <service android:name="com.d9lab.ati.whatiesdk.mqtt.MyMqttService"/>
 <service android:name="com.d9lab.ati.whatiesdk.tcp.TcpService"/>
@@ -298,7 +298,7 @@ If you just want to update your password, you can reset your password with the e
     * @param baseCallback  
     */
     EHomeInterface.getINSTANCE().changePwd(mContext, email, oldPwd,newPwd, new BaseCallback(){                         
-        @ Override             
+        @Override             
         public void onSuccess(Response<BaseResponse> response) {             
 
         }             
@@ -678,11 +678,6 @@ private long rowId;
 
 ```
 
-
-
-
-
-
 ## 6. Sharing Devices
 
 ### 6.1 Query a user’s received shared device list
@@ -779,7 +774,11 @@ new BaseCallback() { 
 ### 7.1 Add a timer
 Set a timer to operate the device on some specifical time.Your operation on the device will take effect once the time of the timer arrives.   
 
-**Important Note:** loops: @“0000000”, each bit, 0: off, 1: on, representing from left to right: Sunday Saturday Friday Thursday Wednesday Tuesday Monday.
+**Important Note:**   
+1.loops: @“0000000”, each bit, 0: off, 1: on, representing from left to right: Sunday Saturday Friday Thursday Wednesday Tuesday Monday.  
+2.The timer setting is successful only when <font color=#ff0000>MqttSetTimerSuccessEvent</font> is received, as well as editing.  
+3.The category string of a timer supports up to <font color=#ff0000>20</font> letters.  
+4.If there are two timers contain the same trigger time, the setting will not succeed.
 
 
 ```java
@@ -819,7 +818,6 @@ Set a timer to operate the device on some specifical time.Your operation on the 
     });
 ```
 ### 7.2 Edit timer
-
 
 ```java
 /**  *   
@@ -867,7 +865,7 @@ Update the status of a specified timer under a specified device, i.e., 0: off, 1
     * @param state  //state of timer   
     * @param baseCallback  
     */
-    EHomeInterface.getINSTANCE().updateTimerStatus(mContext, clockId, state,         new BaseCallback() {               
+    EHomeInterface.getINSTANCE().updateTimerStatus(mContext, clockId, state,  new BaseCallback() {               
         @Override             
         public void onSuccess(Response<BaseResponse> response) {             
 
@@ -883,11 +881,12 @@ Update the status of a specified timer under a specified device, i.e., 0: off, 1
 Delete a specified timer under a specified device by:
 
 ```java
-/**  *  * @param mContext  
+/**  *  
+    * @param mContext  
     * @param clockId  
     * @param baseCallback  
     */
-    EHomeInterface.getINSTANCE().removeTimer(mContext, clockId,         new BaseCallback() {                
+    EHomeInterface.getINSTANCE().removeTimer(mContext, clockId,  new BaseCallback() {                
         @Override             
         public void onSuccess(Response<BaseResponse> response) {             
 
@@ -905,21 +904,53 @@ Delete a specified timer under a specified device by:
 Obtain all timers under a specified device by:
 
 ```java
- * @param mContext  
- * @param deviceId  //device’s id   
- * @param callback  
- */
-    EHomeInterface.getINSTANCE().getTimerList(mContext, deviceId,         new ClockCallback() {             
+/** *
+    * @param mContext  
+    * @param deviceId  //device’s id   
+    * @param callback  
+    */
+    EHomeInterface.getINSTANCE().getTimerList(mContext, deviceId,  new ClockCallback() {             
         @Override             
         public void onSuccess(Response<BaseListResponse<ClockVo>> response) {             
 
         }              
         @Override             
         public void onError(Response<BaseListResponse<ClockVo>> response) {                 
-            super.onError(response);             
+            super.onError(response);   
         }         
     });
 
+```
+### Data model
+
+#### ClockVo
+```java
+private Clock deviceClock;
+private Integer durationTime;  //The time of countdown
+private String finishTimeApp; //Timer execution time
+```
+
+#### Clock
+```java
+private int id;
+private Device device;
+private ClockType clockType;
+/**
+* timerType:
+* A seven-bit binary string
+* From the lowest bit to highest bit, indicating Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+* "1" means timer will execute and "0" means not
+* For example, "0011001" means this timer will execute on Monday, Thursday And Friday
+* "0000000" means this timer will execute only once.
+*/
+private String timerType;
+private int clockId;
+private Boolean clockStatus;  // timer state
+private Integer timezone;     //phone's timezone
+private Date createTime;
+private String finishTime;
+private String dps;
+private String tag;  // category string
 ```
 
 ## 8. Timing Countdown for a specific device
