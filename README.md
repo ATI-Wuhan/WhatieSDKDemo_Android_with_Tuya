@@ -1,5 +1,5 @@
 
-## WahtieSDK for Android v1.3.5c updated at 2018-07-06
+## WahtieSDK for Android v1.3.6c updated at 2018-07-06
 
 ```
 What's new:
