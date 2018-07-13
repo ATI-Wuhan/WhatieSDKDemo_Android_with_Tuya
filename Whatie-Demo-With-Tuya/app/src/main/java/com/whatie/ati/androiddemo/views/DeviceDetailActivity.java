@@ -378,7 +378,7 @@ public class DeviceDetailActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 3, sticky = true)
     public void onEventMainThread(MqttReceiveEvent event) {
         switch (event.getProtocol()) {
-            case Code.DATA_SUBMIT:
+            case Code.PLUG_POWER_RECEIVE:
                 if (deviceVo.getDevice().getDevId().equals(event.getData().getDevId()) && (state != (boolean) event.getData().getDps().get("1"))) {
                     rlDeviceDetailSwitch.setEnabled(true);
                     mHandler.removeCallbacks(mRunnable);
