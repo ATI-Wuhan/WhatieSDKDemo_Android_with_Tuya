@@ -1,9 +1,9 @@
 
-## WahtieSDK for Android v1.3.6c updated at 2018-07-06
+## WahtieSDK for Android v1.3.7c updated at 2018-07-13
 
 ```
 What's new:
-Now you can add a timer with a category string. 
+Change the attribute of the status field of the Device.class to English. 
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
