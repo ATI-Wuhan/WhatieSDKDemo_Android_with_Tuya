@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">eHome</string>
+    <string name="app_name">WhatieDemo</string>
 
     <!--首页（无设备）-->
     <string name="no_device_title">无设备</string>
