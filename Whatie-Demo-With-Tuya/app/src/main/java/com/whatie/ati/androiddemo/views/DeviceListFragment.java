@@ -213,6 +213,7 @@ public class DeviceListFragment extends BaseFragment {
                 final String productName = item.getProductName();
 
                 holder.setText(R.id.tv_device_item_name, item.getDevice().getName());
+                holder.setText(R.id.tv_device_local, item.getRoomName());
                 holder.saveImageCache(R.id.iv_device_icon, item.getDevice().getProduct().getPictureThumb().getPath(), item.getDevice().getProduct().getName());
 
                 Log.d(TAG, "bindData:Boolean      " + Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY)));
@@ -513,6 +514,32 @@ public class DeviceListFragment extends BaseFragment {
                 intent.putExtra(Code.DEVICE_ID, item.getDevice().getId());
                 startActivity(intent);
                 setBackgroundAlpha(1.0f);
+            }
+        });
+
+        TextView setRoom = changeDeviceView.findViewById(R.id.tv_set_room);
+        setRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EHomeInterface.getINSTANCE().setDeviceToRoom(mContext, item.getDevice().getId(), "TestRoom", new BaseCallback() {
+                    @Override
+                    public void onSuccess(Response<BaseResponse> response) {
+                        if (response.body().isSuccess()) {
+                            changeDeviceWindow.dismiss();
+                            setBackgroundAlpha(1.0f);
+                        } else {
+                            changeDeviceWindow.dismiss();
+                            setBackgroundAlpha(1.0f);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<BaseResponse> response) {
+                        super.onError(response);
+                        changeDeviceWindow.dismiss();
+                        setBackgroundAlpha(1.0f);
+                    }
+                });
             }
         });
 
