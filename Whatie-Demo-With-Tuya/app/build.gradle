@@ -73,7 +73,7 @@ greendao {
 }
 
 dependencies {
-    compile(name: 'WhatieSDK-1.4.2c', ext: 'aar'){
+    compile(name: 'WhatieSDK-1.4.3c', ext: 'aar'){
         exclude module: 'netty-all-5.0.0.Alpha2.jar'
     }
     compile(name: 'tuyasmart-1.13.10', ext:'aar')
