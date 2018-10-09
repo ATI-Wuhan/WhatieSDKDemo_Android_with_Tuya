@@ -1,9 +1,9 @@
 
-## WahtieSDK for Android v1.4.4c updated at 2018-09-12
+## WahtieSDK for Android v1.4.5c updated at 2018-10-09
 
 ```
 What's new:
-Fix some issues. 
+Fix time-zone issue. 
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
