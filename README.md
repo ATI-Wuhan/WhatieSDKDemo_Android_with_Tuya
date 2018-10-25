@@ -3,7 +3,8 @@
 
 ```
 What's new:
-Fix time-zone issue. 
+1.Solve the issue that multiple apps using this SDK cannot be opened at the same time
+2.Solve the issue of starting the Service in the background
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
