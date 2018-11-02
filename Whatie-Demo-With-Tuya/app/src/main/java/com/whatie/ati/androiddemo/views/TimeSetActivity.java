@@ -2,20 +2,19 @@ package com.whatie.ati.androiddemo.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.lib.WheelView;
 import com.bigkoo.pickerview.listener.OnItemSelectedListener;
-import com.whatie.ati.androiddemo.R;
-import com.whatie.ati.androiddemo.utils.DatetimeUtil;
-import com.whatie.ati.androiddemo.widget.togglebutton.ToggleButton;
 import com.d9lab.ati.whatiesdk.bean.BaseResponse;
 import com.d9lab.ati.whatiesdk.bean.ClockVo;
 import com.d9lab.ati.whatiesdk.callback.BaseCallback;
@@ -24,12 +23,18 @@ import com.d9lab.ati.whatiesdk.event.MqttCancelTimerSuccessEvent;
 import com.d9lab.ati.whatiesdk.event.MqttSetTimerSuccessEvent;
 import com.d9lab.ati.whatiesdk.util.Code;
 import com.lzy.okgo.model.Response;
+import com.whatie.ati.androiddemo.R;
+import com.whatie.ati.androiddemo.utils.DatetimeUtil;
+import com.whatie.ati.androiddemo.utils.ToastUtil;
+import com.whatie.ati.androiddemo.views.BaseActivity;
+import com.whatie.ati.androiddemo.widget.togglebutton.ToggleButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,8 +60,11 @@ public class TimeSetActivity extends BaseActivity {
     TextView tvtitleright;
     @BindView(R.id.tv_title_left)
     TextView tvtitleleft;
+    @BindView(R.id.iv_title_left)
+    ImageView ivTitleLeft;
     @BindView(R.id.rl_timer_type)
     RelativeLayout rlTimerType;
+
     @BindView(R.id.ll_title_left)
     LinearLayout llTitleLeft;
     @BindView(R.id.tv_timer_type)
@@ -67,15 +75,13 @@ public class TimeSetActivity extends BaseActivity {
     ToggleButton tbTimerState;
     @BindView(R.id.tv_delete_timer)
     TextView tvDeleteTimer;
-    @BindView(R.id.et_timer_category)
-    EditText etTimerCategory;
 
     public static final int REQUEST_REPEAT = 1;
     private int deviceId;
     private String timerType = "0000000";
-    private boolean dps = false;
+    private boolean powerState = false;
     private int clockId;
-    private String mCategory = "";
+    private String productName;
     private MaterialDialog mConfirmExitDialog;
     final List<String> mdayItems = new ArrayList<>();
     final List<String> mhourItems = new ArrayList<>();
@@ -83,7 +89,15 @@ public class TimeSetActivity extends BaseActivity {
     String hour = "00";
     String min = "00";
 
-    private static String CATEGORY_DEFAULT = "Category tag";
+    private static String TAG_TEST = "Category tag";
+
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mLoadingDialog.dismiss();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,32 +237,56 @@ public class TimeSetActivity extends BaseActivity {
         });
         Hour.setCyclic(true);
         Min.setCyclic(true);
-        if (getIntent().getAction().equals(TimerListActivity.FROM_ADD)) {
-            deviceId = getIntent().getIntExtra(Code.DEVICE_ID, -1);
-            tvtitle.setText(getString(R.string.add_timer_title));
-            tvDeleteTimer.setVisibility(View.GONE);
-            Hour.setCurrentItem(DatetimeUtil.getCurrentHourInt());
-            Min.setCurrentItem(DatetimeUtil.getCurrentMinInt());
-            hour = DatetimeUtil.getCurrentHourInt() + "";
-            min = DatetimeUtil.getCurrentMinInt() + "";
-        } else {
-            ClockVo clockVo = (ClockVo) getIntent().getSerializableExtra(Code.CLOCK);
-            Log.d(TAG, "initViews: ClockVo tag = " + clockVo.getDeviceClock().getTag());
-            clockId = clockVo.getDeviceClock().getId();
-            deviceId = clockVo.getDeviceClock().getDevice().getId();
-            String[] d = clockVo.getDeviceClock().getDps().split("_");
-            dps = Boolean.valueOf(d[0]);
-            tbTimerState.toggle(dps);
-            timerType = clockVo.getDeviceClock().getTimerType();
-            showTimeType(timerType);
-            Hour.setCurrentItem(Integer.valueOf(clockVo.getFinishTimeApp().substring(0, 2)));
-            Min.setCurrentItem(Integer.valueOf(clockVo.getFinishTimeApp().substring(2, clockVo.getFinishTimeApp().length())));
-            hour = clockVo.getFinishTimeApp().substring(0, 2);
-            min = clockVo.getFinishTimeApp().substring(2, clockVo.getFinishTimeApp().length());
-            tvtitle.setText(getString(R.string.edit_timer_title));
-            etTimerCategory.setText(clockVo.getDeviceClock().getTag());
-            tvDeleteTimer.setVisibility(View.VISIBLE);
+        switch (getIntent().getAction()) {
+            case TimerListActivity.FROM_ADD:
+                productName = getIntent().getStringExtra(Code.PRODUCT_NAME);
+                deviceId = getIntent().getIntExtra(Code.DEVICE_ID, -1);
+                Log.d(TAG, "initViews: productName = " + productName);
+                Log.d(TAG, "initViews: DeviceId = " + deviceId);
+                tvtitle.setText(getString(R.string.add_timer_title));
+                tvDeleteTimer.setVisibility(View.GONE);
+                Hour.setCurrentItem(DatetimeUtil.getCurrentHourInt());
+                Min.setCurrentItem(DatetimeUtil.getCurrentMinInt());
+                if (DatetimeUtil.getCurrentHourInt() < 10) {
+                    hour = "0" + DatetimeUtil.getCurrentHourInt();
+                } else {
+                    hour = DatetimeUtil.getCurrentHourInt() + "";
+                }
+                if (DatetimeUtil.getCurrentMinInt() < 10) {
+                    min = "0" + DatetimeUtil.getCurrentMinInt();
+                } else {
+                    min = DatetimeUtil.getCurrentMinInt() + "";
+                }
+                break;
+            case TimerListActivity.FROM_CHANGE:
+                productName = getIntent().getStringExtra(Code.PRODUCT_NAME);
+                ClockVo clockVo = (ClockVo) getIntent().getSerializableExtra(Code.CLOCK);
+                clockId = clockVo.getDeviceClock().getId();
+                deviceId = clockVo.getDeviceClock().getDevice().getId();
+                if (Code.PRODUCT_TYPE_PLUG.equals(productName)) {
+                    String[] d = clockVo.getDeviceClock().getDps().split("_");
+                    powerState = Boolean.valueOf(d[0]);
+                } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName) || Code.PRODUCT_TYPE_MONOLIGHT.equals(productName)) {
+                    String[] d = clockVo.getDeviceClock().getDps().split("_");
+                    powerState = Boolean.valueOf(d[0]);
+                } else if (Code.PRODUCT_TYPE_STRIP.equals(productName)) {
+                    HashMap dps = JSON.parseObject(clockVo.getDeviceClock().getDps(), new TypeReference<HashMap<String, Object>>() {
+                    });
+                    powerState = (Boolean) dps.get(Code.STRIP_CONTROL_STATUS);
+                }
+                tbTimerState.toggle(powerState);
+                timerType = clockVo.getDeviceClock().getTimerType();
+                showTimeType(timerType);
+                Hour.setCurrentItem(Integer.valueOf(clockVo.getFinishTimeApp().substring(0, 2)));
+                Min.setCurrentItem(Integer.valueOf(clockVo.getFinishTimeApp().substring(2, clockVo.getFinishTimeApp().length())));
+                hour = clockVo.getFinishTimeApp().substring(0, 2);
+                min = clockVo.getFinishTimeApp().substring(2, clockVo.getFinishTimeApp().length());
+                tvtitle.setText(getString(R.string.edit_timer_title));
+                tvDeleteTimer.setVisibility(View.VISIBLE);
+                break;
+
         }
+
     }
 
     @OnClick({R.id.rl_timer_type, R.id.ll_title_left, R.id.ll_title_right, R.id.tb_timer_state, R.id.tv_delete_timer})
@@ -259,22 +297,27 @@ public class TimeSetActivity extends BaseActivity {
                 break;
             case R.id.rl_timer_type:
                 Intent intent = new Intent(TimeSetActivity.this, TimeTypeActivity.class);
+                intent.putExtra("from_where", getIntent().getAction());
                 intent.putExtra("time_type", timerType);
                 startActivityForResult(intent, REQUEST_REPEAT);
                 break;
             case R.id.ll_title_right:
-                if (getIntent().getAction().equals(TimerListActivity.FROM_ADD)) {
-                    saveTimer();
-                } else {
-                    editTimer();
+                switch (getIntent().getAction()) {
+                    case TimerListActivity.FROM_ADD:
+                        saveTimer();
+                        break;
+                    case TimerListActivity.FROM_CHANGE:
+                        editTimer();
+                        break;
+
                 }
                 break;
             case R.id.tb_timer_state:
-                if (dps) {
-                    dps = false;
+                if (powerState) {
+                    powerState = false;
                     tbTimerState.toggleOff();
                 } else {
-                    dps = true;
+                    powerState = true;
                     tbTimerState.toggleOn();
                 }
                 break;
@@ -283,54 +326,211 @@ public class TimeSetActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void editSceneTimer() {
+        Intent intent = new Intent();
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", min);
+        intent.putExtra("time_day_setting", timerType);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void setSceneTimer() {
+        Intent intent = new Intent();
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", min);
+        intent.putExtra("time_day_setting", timerType);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     public void saveTimer() {
         mLoadingDialog.show();
-        if(!"".equals(etTimerCategory.getText().toString().trim())) {
-            mCategory = etTimerCategory.getText().toString().trim();
-        }
-        EHomeInterface.getINSTANCE().addTimer(mContext, mCategory, deviceId, timerType, hour, min, dps, new BaseCallback() {
-            @Override
-            public void onSuccess(Response<BaseResponse> response) {
-                if (!response.body().isSuccess()) {
-                    mLoadingDialog.dismiss();
+        mHandler.postDelayed(mRunnable, 8000);
+        if (Code.PRODUCT_TYPE_PLUG.equals(productName)) {
+            EHomeInterface.getINSTANCE().addTimer(mContext, TAG_TEST, deviceId, timerType, hour, min, powerState, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                    } else {
+                        mLoadingDialog.dismiss();
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
                 }
-                Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onError(Response<BaseResponse> response) {
-                super.onError(response);
-                mLoadingDialog.dismiss();
-                Toast.makeText(mContext, Code.NETWORK_WRONG, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName) || Code.PRODUCT_TYPE_MONOLIGHT.equals(productName)) {
+            HashMap<String, Object> dps = new HashMap<>();
+            dps.put(Code.LIGHT_MODE, Code.LIGHT_MODE_POWER);
+            dps.put(Code.LIGHT_DPS_STATUS, String.valueOf(powerState));
+            EHomeInterface.getINSTANCE().addTimer(mContext, deviceId, timerType, hour, min, dps, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                    } else {
+                        mLoadingDialog.dismiss();
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        } else if (Code.PRODUCT_TYPE_STRIP.equals(productName)) {
+            HashMap<String, Object> dps = new HashMap<>();
+            dps.put(Code.STRIP_CONTROL_MODE, getIntent().getIntExtra(Code.STRIP_CONTROL_MODE, -1));
+            dps.put(Code.STRIP_CONTROL_STATUS, powerState);
+            EHomeInterface.getINSTANCE().addTimer(mContext, deviceId, timerType, hour, min, dps, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                        ToastUtil.showShort(mContext, R.string.toast_edit_timer_success);
+                    } else {
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        }
+
 
     }
 
     public void editTimer() {
         mLoadingDialog.show();
-        if(!"".equals(etTimerCategory.getText().toString().trim())) {
-            mCategory = etTimerCategory.getText().toString().trim();
-        } else {
-            mCategory = "";
-        }
-        Log.d(TAG, "editTimer: mCategory = " + mCategory);
-        EHomeInterface.getINSTANCE().editTimer(mContext, mCategory, clockId, timerType, hour, min, dps, new BaseCallback() {
-            @Override
-            public void onSuccess(Response<BaseResponse> response) {
-                if (!response.body().isSuccess()) {
-                    mLoadingDialog.dismiss();
+        mHandler.postDelayed(mRunnable, 8000);
+        if (Code.PRODUCT_TYPE_PLUG.equals(productName)) {
+            EHomeInterface.getINSTANCE().editTimer(mContext, clockId, timerType, hour, min, powerState, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                        ToastUtil.showShort(mContext, R.string.toast_edit_timer_success);
+                    } else {
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
                 }
-                Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onError(Response<BaseResponse> response) {
-                super.onError(response);
-                mLoadingDialog.dismiss();
-                Toast.makeText(mContext, Code.NETWORK_WRONG, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName) || Code.PRODUCT_TYPE_MONOLIGHT.equals(productName)) {
+            HashMap<String, Object> dps = new HashMap<>();
+            dps.put(Code.LIGHT_MODE, Code.LIGHT_MODE_POWER);
+            dps.put(Code.LIGHT_DPS_STATUS, String.valueOf(powerState));
+            EHomeInterface.getINSTANCE().editTimer(mContext, clockId, timerType, hour, min, dps, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                        ToastUtil.showShort(mContext, R.string.toast_edit_timer_success);
+                    } else {
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        } else if (Code.PRODUCT_TYPE_STRIP.equals(productName)) {
+            HashMap<String, Object> dps = new HashMap<>();
+            dps.put(Code.STRIP_CONTROL_MODE, getIntent().getIntExtra(Code.STRIP_CONTROL_MODE, -1));
+            dps.put(Code.STRIP_CONTROL_STATUS, powerState);
+            EHomeInterface.getINSTANCE().editTimer(mContext, clockId, timerType, hour, min, dps, new BaseCallback() {
+                @Override
+                public void onSuccess(Response<BaseResponse> response) {
+                    if (response.body().isSuccess()) {
+                        mLoadingDialog.dismiss();
+                        ToastUtil.showShort(mContext, R.string.toast_edit_timer_success);
+                    } else {
+                        if (response.body() != null) {
+                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                        } else {
+                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Response<BaseResponse> response) {
+                    super.onError(response);
+                    mLoadingDialog.dismiss();
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
+                }
+            });
+        }
 
     }
 
@@ -360,20 +560,31 @@ public class TimeSetActivity extends BaseActivity {
 
     private void deleteTimer() {
         mLoadingDialog.show();
+        mHandler.postDelayed(mRunnable, 8000);
         EHomeInterface.getINSTANCE().removeTimer(mContext, clockId, new BaseCallback() {
             @Override
             public void onSuccess(Response<BaseResponse> response) {
-                if (!response.body().isSuccess()) {
+                if (response.body().isSuccess()) {
                     mLoadingDialog.dismiss();
+                    ToastUtil.showShort(mContext, R.string.toast_delete_timer_success);
+                } else {
+                    if (response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
                 }
-                Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(Response<BaseResponse> response) {
                 super.onError(response);
                 mLoadingDialog.dismiss();
-                Toast.makeText(mContext, Code.NETWORK_WRONG, Toast.LENGTH_SHORT).show();
+                if (response.body() != null) {
+                    ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                } else {
+                    ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                }
             }
         });
 
@@ -432,17 +643,18 @@ public class TimeSetActivity extends BaseActivity {
             showTimeType(timerType);
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 5, sticky = true)
     public void onEventMainThread(MqttCancelTimerSuccessEvent event) {
         mLoadingDialog.dismiss();
         finish();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 5, sticky = true)
     public void onEventMainThread(MqttSetTimerSuccessEvent event) {
         mLoadingDialog.dismiss();
         finish();
     }
-
 
 
 }

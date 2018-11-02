@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.d9lab.ati.whatiesdk.event.DeviceStatusNotifyEvent;
 import com.whatie.ati.androiddemo.R;
 import com.whatie.ati.androiddemo.widget.CountdownTextView;
 import com.d9lab.ati.whatiesdk.bean.BaseListResponse;
@@ -138,7 +139,7 @@ public class DeviceDetailActivity extends BaseActivity {
             tvRomVersion.setText(deviceVo.getDevice().getHardwareVersion().getVersion());
         }
         tvDeviceControlName.setText(deviceVo.getDevice().getProduct().getName());
-        state = Boolean.parseBoolean(deviceVo.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY));
+        state = Boolean.parseBoolean(deviceVo.getFunctionValuesMap().get(Code.FUNCTION_MAP_POWER));
         toggleState(state);
         getCountdownTime();
 
@@ -375,109 +376,8 @@ public class DeviceDetailActivity extends BaseActivity {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 3, sticky = true)
-    public void onEventMainThread(MqttReceiveEvent event) {
-        switch (event.getProtocol()) {
-            case Code.PLUG_POWER_RECEIVE:
-                if (deviceVo.getDevice().getDevId().equals(event.getData().getDevId()) && (state != (boolean) event.getData().getDps().get("1"))) {
-                    rlDeviceDetailSwitch.setEnabled(true);
-                    mHandler.removeCallbacks(mRunnable);
-                    state = (boolean) event.getData().getDps().get("1");
-                    toggleState(state);
-                }
-                break;
-            case Code.UNBIND_CONFIRM:
-            case Code.RESET:
-            case Code.OUT_LINE:
-                break;
-            case Code.COUNT_DOWN_FEEDBACK:
-                if (deviceVo.getDevice().getDevId().equals(event.getData().getDevId())) {
-                    switch (event.getData().getExecutionType()) {
-                        case Code.MQTT_COUNT_DOWN_SUCCESS:
-                            countdownClockId = event.getData().getClockId();
-                            ctvDeviceControlCountdownTime.setVisibility(View.VISIBLE);
-                            ctvDeviceControlCountdownTime.setCountdownConfigAndStart(event.getData().getDuration() * 1000, 1000, state);
-                            break;
-                        case Code.MQTT_COUNT_DOWN_CANCEL_SUCCESS:
-                            ctvDeviceControlCountdownTime.cancelCountdown();
-                            ctvDeviceControlCountdownTime.setVisibility(View.INVISIBLE);
-                            countdownClock = null;
-                            countdownClockId = -1;
-                            break;
-                    }
-                }
-                break;
-        }
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 4, sticky = true)
-    public void onEventMainThread(MqttSetCdSuccessEvent event) {
-        if (event.getDevId().equals(deviceVo.getDevice().getDevId())) {
-            countdownClock = new ClockVo();
-            ctvDeviceControlCountdownTime.setVisibility(View.VISIBLE);
-            ctvDeviceControlCountdownTime.setCountdownConfigAndStart(event.getDuration() * 1000, 1000, state);
-        }
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 4, sticky = true)
-    public void onEventMainThread(MqttCancelCdSuccessEvent event) {
-        if (event.getDevId().equals(deviceVo.getDevice().getDevId())) {
-            ctvDeviceControlCountdownTime.cancelCountdown();
-            ctvDeviceControlCountdownTime.setVisibility(View.INVISIBLE);
-            countdownClock = null;
-            countdownClockId = -1;
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 2, sticky = true)
-    public void onEventMainThread(TcpReceiveInstEvent event) {
-        mHandler.removeCallbacks(mRunnable);
-        mHandler.postDelayed(mRunnable, 800);
-        String devId = event.getDeviceTcp().getDevId();
-        boolean state = (boolean) event.getDeviceTcp().getDps().get("1");
-        if (devId.equals(deviceVo.getDevice().getDevId()) && (state != this.state)) {
-            this.state = state;
-            toggleState(state);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveSharedOnEvent event) {
-        deviceVo.getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(true));
-        deviceVo.getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        state = true;
-        toggleState(true);
-        rlDeviceDetailSwitch.setEnabled(true);
-        mHandler.removeCallbacks(mRunnable);
-        Log.d(TAG, "onEventMainThread: MqttReceiveOnEvent" + event.getIndex());
-//        mAdapter.notifyDataSetChanged();
-        removeCountDown();
-
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveSharedOffEvent event) {
-        deviceVo.getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(false));
-        deviceVo.getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        state = false;
-        toggleState(false);
-        rlDeviceDetailSwitch.setEnabled(true);
-        mHandler.removeCallbacks(mRunnable);
-        Log.d(TAG, "onEventMainThread: MqttReceiveOffEvent" + event.getIndex());
-        removeCountDown();
-
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveOnEvent event) {
-        deviceVo.getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(true));
-        deviceVo.getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        state = true;
-        toggleState(true);
-        rlDeviceDetailSwitch.setEnabled(true);
-        mHandler.removeCallbacks(mRunnable);
-        Log.d(TAG, "onEventMainThread: MqttReceiveOnEvent" + event.getIndex());
-//        mAdapter.notifyDataSetChanged();
-        removeCountDown();
-    }
 
     private void removeCountDown() {
         EHomeInterface.getINSTANCE().getTimerClockWithDeviceModel(mContext, deviceVo.getDevice().getId(), new ClockCallback() {
@@ -493,24 +393,6 @@ public class DeviceDetailActivity extends BaseActivity {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveOffEvent event) {
-        deviceVo.getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(false));
-        deviceVo.getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        state = false;
-        toggleState(false);
-        rlDeviceDetailSwitch.setEnabled(true);
-        mHandler.removeCallbacks(mRunnable);
-        Log.d(TAG, "onEventMainThread: MqttReceiveOffEvent" + event.getIndex());
-        removeCountDown();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveStatusEvent event) {
-        deviceVo.getDevice().setStatus(event.getStatus());
-//        mAdapter.notifyDataSetChanged();
-        Log.d(TAG, "onEventMainThread: MqttReceiveStatusEvent" + event.getIndex());
-    }
 
 
     private void showExitConfirmDialog() {
@@ -551,5 +433,37 @@ public class DeviceDetailActivity extends BaseActivity {
                     public void onClick(View v) {
                     }
                 }).show();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 4, sticky = true)
+    public void onEventMainThread(MqttSetCdSuccessEvent event) {
+        if (event.getDevId().equals(deviceVo.getDevice().getDevId())) {
+            countdownClock = new ClockVo();
+            ctvDeviceControlCountdownTime.setVisibility(View.VISIBLE);
+            ctvDeviceControlCountdownTime.setCountdownConfigAndStart(event.getDuration() * 1000, 1000, state);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 4, sticky = true)
+    public void onEventMainThread(MqttCancelCdSuccessEvent event) {
+        if (event.getDevId().equals(deviceVo.getDevice().getDevId())) {
+            ctvDeviceControlCountdownTime.cancelCountdown();
+            ctvDeviceControlCountdownTime.setVisibility(View.INVISIBLE);
+            countdownClock = null;
+            countdownClockId = -1;
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
+    public void onEventMainThread(DeviceStatusNotifyEvent event) {
+        Log.d(TAG, "onEventMainThread: MqttReceiveStripStatusEvent");
+        if(event.getmDeviceVo().getDevice().getDevId().equals(deviceVo.getDevice().getDevId())) {
+            state = Boolean.parseBoolean(event.getmDeviceVo().getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER));
+            toggleState(state);
+            rlDeviceDetailSwitch.setEnabled(true);
+            mHandler.removeCallbacks(mRunnable);
+        }
     }
 }

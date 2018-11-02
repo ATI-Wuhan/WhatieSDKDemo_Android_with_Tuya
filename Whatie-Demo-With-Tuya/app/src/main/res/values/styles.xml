@@ -125,4 +125,5 @@
         <item name="android:thumb">@drawable/colorbar_thumb</item>
     </style>
 
+
 </resources>

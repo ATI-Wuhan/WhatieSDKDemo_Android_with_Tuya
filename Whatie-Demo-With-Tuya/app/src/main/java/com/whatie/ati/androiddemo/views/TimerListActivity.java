@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.whatie.ati.androiddemo.R;
 import com.whatie.ati.androiddemo.utils.BaseRecyclerAdapter;
 import com.whatie.ati.androiddemo.utils.RecyclerViewHolder;
+import com.whatie.ati.androiddemo.utils.ToastUtil;
 import com.whatie.ati.androiddemo.widget.MySwipeRefreshLayout;
 import com.d9lab.ati.whatiesdk.bean.BaseListResponse;
 import com.d9lab.ati.whatiesdk.bean.BaseResponse;
@@ -24,12 +28,14 @@ import com.d9lab.ati.whatiesdk.event.MqttCancelTimerSuccessEvent;
 import com.d9lab.ati.whatiesdk.event.MqttSetTimerSuccessEvent;
 import com.d9lab.ati.whatiesdk.util.Code;
 import com.lzy.okgo.model.Response;
+import com.whatie.ati.androiddemo.widget.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -210,27 +216,47 @@ public class TimerListActivity extends BaseActivity{
 
             @Override
             public void bindData(RecyclerViewHolder holder, int position, final ClockVo item) {
-                String[] d = item.getDeviceClock().getDps().split("_");
-                String dps = d[0].equals(Code.TRUE) ? "ON" : "OFF";
-                holder.setText(R.id.tv_alarm_device_state, dps);
+                if (Code.PRODUCT_TYPE_PLUG.equals(mDevice.getProductName())) {
+                    String[] d = item.getDeviceClock().getDps().split("_");
+                    int dps = d[0].equals(Code.TRUE) ? R.string.device_on : R.string.device_off;
+                    holder.setText(R.id.tv_alarm_device_state, getString(dps));
+                } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(mDevice.getProductName()) || Code.PRODUCT_TYPE_MONOLIGHT.equals(mDevice.getProductName())) {
+                    String[] d = item.getDeviceClock().getDps().split("_");
+                    int dps = d[0].equals(Code.TRUE) ? R.string.device_on : R.string.device_off;
+                    holder.setText(R.id.tv_alarm_device_state, getString(dps));
+                } else if (Code.PRODUCT_TYPE_STRIP.equals(mDevice.getProductName())) {
+                    HashMap dps = JSON.parseObject(item.getDeviceClock().getDps(), new TypeReference<HashMap<String, Object>>(){});
+                    Log.d(TAG, "bindData: dps : " + dps.toString());
+                    if ((Boolean) dps.get(Code.STRIP_CONTROL_STATUS)) {
+                        holder.setText(R.id.tv_alarm_device_state, getString(R.string.device_on));
+                    } else {
+                        holder.setText(R.id.tv_alarm_device_state, getString(R.string.device_off));
+                    }
+                }
                 holder.setText(R.id.tv_alarm_time, showTime(item.getFinishTimeApp()));
                 holder.setText(R.id.tv_alarm_day, showTimeType(item.getDeviceClock().getTimerType()));
-                holder.setToggleState(R.id.sw_alarm_item, item.getDeviceClock().getClockStatus());
+
+                holder.setSwitchButtonState(R.id.sw_alarm_item, item.getDeviceClock().getClockStatus());
+                holder.setClickListener(R.id.sw_alarm_item, new SwitchButton.OnShortClickListener() {
+                    @Override
+                    public void onClicked(SwitchButton view) {
+                        editTimerState(item);
+                    }
+                });
+
+
                 holder.setClickListener(R.id.rl_item_alarm, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent alarmchange = new Intent(TimerListActivity.this, TimeSetActivity.class);
                         alarmchange.setAction(FROM_CHANGE);
+
                         alarmchange.putExtra(Code.CLOCK, item);
+                        alarmchange.putExtra(Code.PRODUCT_NAME, mDevice.getProductName());
                         startActivity(alarmchange);
                     }
                 });
-                holder.setClickListener(R.id.sw_alarm_item, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        editTimerState(item);
-                    }
-                });
+
             }
         };
         xrvAlarmList.setAdapter(mAdapter);
@@ -241,22 +267,32 @@ public class TimerListActivity extends BaseActivity{
         EHomeInterface.getINSTANCE().updateTimerStatus(mContext, clockVo.getDeviceClock().getId(), !clockVo.getDeviceClock().getClockStatus(), new BaseCallback() {
             @Override
             public void onSuccess(Response<BaseResponse> response) {
-                if (!response.body().isSuccess()) {
+                if (response.body().isSuccess()) {
                     mLoadingDialog.dismiss();
+                    ToastUtil.showShort(mContext, R.string.scene_toast_edit_success);
+                } else {
+                    mLoadingDialog.dismiss();
+                    if(response.body() != null) {
+                        ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                    } else {
+                        ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                    }
                 }
-                Toast.makeText(mContext, response.body().getMessage(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(Response<BaseResponse> response) {
                 super.onError(response);
                 mLoadingDialog.dismiss();
-                Toast.makeText(mContext,  Code.NETWORK_WRONG,Toast.LENGTH_SHORT).show();
+                if(response.body() != null) {
+                    ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                } else {
+                    ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                }
             }
         });
 
     }
-
 
     @OnClick({R.id.ll_title_left, R.id.ll_title_right})
     public void onViewClicked(View view) {
@@ -265,9 +301,11 @@ public class TimerListActivity extends BaseActivity{
                 finish();
                 break;
             case R.id.ll_title_right:
+
                 Intent addTimerIntent = new Intent(TimerListActivity.this, TimeSetActivity.class);
                 addTimerIntent.setAction(FROM_ADD);
                 addTimerIntent.putExtra(Code.DEVICE_ID, mDevice.getDevice().getId());
+                addTimerIntent.putExtra(Code.PRODUCT_NAME, mDevice.getProductName());
                 startActivity(addTimerIntent);
                 break;
         }

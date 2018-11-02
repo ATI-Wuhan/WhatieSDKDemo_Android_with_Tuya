@@ -6,6 +6,12 @@
     <color name="transColorAccent">#A00099FF</color>
     <color name="transColorPrimaryDark">#A0F1F2F7</color>
 
+
+    <color name="light_power_close_blue">#26AFF6</color>
+
+    <color name="light_power_close_blue_dark">#0994dc</color>
+
+
     <!--第二版主题色-->
     <color name="main_theme_blue">#26AFF6</color>
     <color name="main_theme_background">#EFEFF1</color>
@@ -17,7 +23,7 @@
     <color name="device_detail_text">#707070</color>
     <color name="no_device_tip">#404040</color>
     <color name="local_light_gray">#777777</color>
-    <color name="light_detail_notice_text">#153562</color>
+
 
 
     <!--设备详情-->
@@ -52,7 +58,6 @@
     <color name="pure_red">#FF0000</color>
     <color name="pure_green">#00FF00</color>
     <color name="pure_blue">#0000FF</color>
-    <color name="light_shelter">#55000000</color>
 
 
     <color name="offline_bg">#f5f5f5</color>
@@ -70,8 +75,39 @@
     <color name="home_gray">#ABABAB</color>
     <color name="home_edit_gray">#FF030303</color>
 
-    <color name="light_power_close_blue">#26AFF6</color>
-    <color name="light_power_close_blue_dark">#1C99DB</color>
+
+
+    <color name="main_theme_button_gray">#dadbda</color>
+
+    <color name="scene_title">#E8EAF1</color>
+
+    <color name="black_title_text">#080808</color>
+
+    <color name="light_detail_notice_text">#153562</color>
+    <color name="placeholder_gray">#f3f3f3</color>
+
+
+    <color name="main_color_taobao">#ff4400</color>
+    <color name="main_color_jd">#c81522</color>
+    <color name="main_color_tmall">#bf0103</color>
+    <color name="main_color_mall_price">#E92E2E</color>
+
+
+
+
+
+
+
+
+    <color name="light_shelter">#55000000</color>
+    <color name="scene_add_device_failed">#2B343B</color>
+    <color name="scene_add_device_failed_select">#161A1D</color>
+    <color name="scene_add_device_failed_text">#FB4242 </color>
+
+
+
+
+
     <color name="light_power_open_orange">#FF6C09</color>
     <color name="light_power_open_orange_dark">#F2670A</color>
     <color name="light_title_text_black">#171717</color>
@@ -80,5 +116,31 @@
     <color name="light_flow_default_color2">#5AFF00</color>
     <color name="light_flow_default_color3">#00AAFF</color>
     <color name="light_flow_default_color4">#FF00FF</color>
+
+    <color name="scene_light_tab_text">#161616</color>
+    <color name="scene_item_name_text">#282828</color>
+    <color name="scene_device_select_item_bg">#8A939A</color>
+    <color name="scene_device_select_item_name">#646464</color>
+
+    <color name="scene_item_switch_on">#2BB977</color>
+    <color name="scene_item_switch_off">#505a55</color>
+    <color name="scene_title_bg">#F8F8F8</color>
+    <color name="scene_location_text">#71787B</color>
+
+
+    <color name="strip_main_switch">#B9B9B9</color>
+    <color name="strip_indicator_green">#2FCF5E </color>
+    <color name="strip_indicator_red">#CF2F2F</color>
+    <color name="strip_close_bg">#343B3B</color>
+    <color name="bulb_tip">#3B4664</color>
+
+
+    <color name="transparent_white_70p">#B3FFFFFF</color>
+
+
+
+
+
+
 
 </resources>

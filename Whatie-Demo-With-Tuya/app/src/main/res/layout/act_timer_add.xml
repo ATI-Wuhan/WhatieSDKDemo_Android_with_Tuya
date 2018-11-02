@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_title" />
 
@@ -12,34 +12,34 @@
         android:id="@+id/ll_timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <com.bigkoo.pickerview.lib.WheelView
             android:id="@+id/wv_hour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/hours"/>
+            android:text="@string/hours" />
 
         <com.bigkoo.pickerview.lib.WheelView
             android:id="@+id/wv_min"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/minutes"/>
+            android:text="@string/minutes" />
     </LinearLayout>
 
     <RelativeLayout
@@ -48,14 +48,16 @@
         android:layout_height="45dp"
         android:layout_marginTop="10dp"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/tv_repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/timer_add_repeat"
-            android:layout_marginStart="12dp"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_18sp"/>
+            android:layout_marginStart="12dp"
+            android:text="@string/timer_add_repeat"
+            android:textSize="@dimen/text_18sp" />
+
         <ImageView
             android:id="@+id/iv_timer_next"
             android:layout_width="@dimen/profile_menu_image_scale"
@@ -63,71 +65,49 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/padding_10dp"
-            android:src="@drawable/ic_right"/>
+            android:src="@drawable/ic_right" />
+
         <TextView
             android:id="@+id/tv_timer_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_timer_next"
+            android:layout_marginEnd="@dimen/padding_5dp"
             android:layout_toLeftOf="@+id/iv_timer_next"
-            android:layout_toRightOf="@+id/tv_repeat"
-            android:layout_centerVertical="true"
-            android:gravity="right"
+            android:layout_toStartOf="@+id/iv_timer_next"
             android:ellipsize="end"
+            android:gravity="right"
+            android:paddingLeft="90dp"
             android:singleLine="true"
-            android:textSize="@dimen/text_18sp"
             android:text="@string/timer_add_never"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_18sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/padding_10dp"
+        android:id="@+id/rl_timer_add_state"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white">
-        <TextView
-            android:id="@+id/tv_cat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/timer_add_tag"
-            android:layout_marginStart="12dp"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/text_18sp"/>
-        
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/et_timer_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_cat"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:maxLines="1"
-            android:maxLength="20"/>
-        
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:background="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/timer_add_state"
-            android:layout_marginStart="12dp"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_18sp"/>
+            android:layout_marginStart="12dp"
+            android:text="@string/timer_add_state"
+            android:textSize="@dimen/text_18sp" />
 
         <com.whatie.ati.androiddemo.widget.togglebutton.ToggleButton
             android:id="@+id/tb_timer_state"
             android:layout_width="50dp"
             android:layout_height="25dp"
-            android:layout_marginEnd="12dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            app:tbOnColor="@color/colorAccent"/>
+            android:layout_marginEnd="12dp"
+            app:tbOnColor="@color/colorAccent" />
 
     </RelativeLayout>
 
@@ -135,12 +115,12 @@
         android:id="@+id/tv_delete_timer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/profile_menu_height"
-        android:background="@color/white"
-        android:text="@string/delete_timer"
-        android:textSize="@dimen/text_18sp"
         android:layout_marginTop="@dimen/padding_35dp"
+        android:background="@color/white"
         android:gravity="center"
+        android:text="@string/delete_timer"
         android:textColor="@drawable/selector_red_text"
-        android:visibility="gone"/>
+        android:textSize="@dimen/text_18sp"
+        android:visibility="gone" />
 
 </LinearLayout>

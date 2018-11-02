@@ -1,10 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--&lt;!&ndash;Geek+部分&ndash;&gt;-->
+    <!--<string name="app_name">Geek+</string>-->
+    <!--<string name="about_app_version">Geek+  </string>-->
+    <!--<string name="about_right_reserved">©2017-2018 Whatie.All rights reserved.</string>-->
+    <!--<string name="about_title">Geek+ 1.0</string>-->
+    <!--<string name="adding_progress_step_2">2.Device is registering to the Geek+ cloud platform</string>-->
+    <!--<string name="setting_choice2">Clear Geek+ Storage</string>-->
+    <!--<string name="profile_update_tip">Geek+ has new version.</string>-->
 
+    <!--eHome部分-->
     <string name="app_name">WhatieDemo</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="about_app_version">WhatieDemo  </string>
+    <string name="about_right_reserved">©2017-2018 Whatie.All rights reserved.</string>
+    <string name="about_title">WhatieDemo 1.0</string>
+    <string name="adding_progress_step_2">2.Device is registering to the eHome cloud platform</string>
+    <string name="setting_choice2">Clear eHome Storage</string>
+    <string name="profile_update_tip">eHome has new version.</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!--Ozwi部分-->
+    <!--<string name="app_name">Ozwi</string>-->
+    <!--<string name="about_app_version">Ozwi  </string>-->
+    <!--<string name="about_right_reserved">©2017-2018 Whatie.All rights reserved.</string>-->
+    <!--<string name="about_title">Ozwi 1.0</string>-->
+    <!--<string name="adding_progress_step_2">2.Device is registering to the Ozwi cloud platform</string>-->
+    <!--<string name="setting_choice2">Clear Ozwi Storage</string>-->
+    <!--<string name="profile_update_tip">Ozwi has new version.</string>-->
+
+    <string name="Feedback">Feedback</string>
+    <string name="Setting_title">Settings</string>
+    <string name="Use_Alexa">Use Amazon Alexa</string>
+    <string name="Use_Google">Use Google Home</string>
+    <string name="about_choice">Features</string>
+    <string name="about_choice2">Update APP</string>
+    <string name="about_choice3">Service Agreement</string>
+    <string name="about_condition_title">Service Agreement</string>
+    <string name="about_featrue_title">Features</string>
+    <string name="about_update_question">Sure to update to the lasted version？</string>
+    <string name="add_device_button">ADD DEVICE</string>
+    <string name="add_timer_title">Add Timer</string>
+    <string name="adding_device_device_near">make sure your device is near your phone</string>
+    <string name="adding_device_next">NEXT</string>
+    <string name="adding_device_please_wait">Please Wait</string>
+    <string name="adding_device_wait_desc">your smart device will be available soon</string>
+    <string name="adding_progress_step_1">1.Device has been searched</string>
+    <string name="adding_progress_step_3">3.Start to add Device...</string>
+    <string name="alarm_add">Add</string>
+    <string name="alarm_item_turn_on">Turn On</string>
+    <string name="alarm_list_title">Timer</string>
+    <string name="alarms_without_network">Can not set alarms at local state.</string>
+    <string name="belong_to_default_home">Home(Default)</string>
+    <string name="belong_to_default_room">DEFAULT ROOM</string>
+    <string name="belong_to_home">BELONGS TO</string>
+    <string name="change_device_title">Change Device Name</string>
+    <string name="change_name_button">CONFIRM</string>
+    <string name="change_name_reminder">Enter the name you want to change</string>
+    <string name="change_name_tip">New name cannot be empty.</string>
+    <string name="change_name_title">Change your user name</string>
+    <string name="change_password_hint">Email Address</string>
+    <string name="change_password_hint_confirm_new">Confirm New password</string>
+    <string name="change_password_hint_new">New password</string>
+    <string name="change_password_hint_old">Old password</string>
+    <string name="change_password_match">Password does not match.</string>
+    <string name="change_password_msg">with your old password</string>
+    <string name="change_password_submit">SUBMIT</string>
+    <string name="change_password_tip">Password cannot be empty.</string>
+    <string name="change_password_title">Change Login Password</string>
+    <string name="change_password_verification_email">Email Verification</string>
+    <string name="change_password_verification_hint">PIN</string>
+    <string name="change_password_verification_reminder">Please enter the PIN fron email to continue.</string>
+    <string name="confirm_device_title">Confirm</string>
+    <string name="confirm_home_wifi">Confirm Home Wifi</string>
+    <string name="confirm_plug">broadlink plug</string>
+    <string name="confirm_socket">BULL smart socket</string>
+    <string name="countdown_hour">Hours</string>
+    <string name="countdown_minutes">Minutes</string>
+    <string name="countdown_without_network">Can not set countdown at local state.</string>
+    <string name="current_wifi">current wifi:</string>
+    <string name="current_wifi_name">unknown ssid</string>
+    <string name="delete_device">DELETE</string>
+    <string name="delete_device_cancel">cancel</string>
+    <string name="delete_device_delete">Delete</string>
+    <string name="delete_device_success">Delete device success!</string>
+    <string name="delete_device_sure">Are you sure to delete this device?</string>
+    <string name="delete_timer">Delete</string>
+    <string name="delete_timer_content">Are you sure to delete this timer?</string>
+    <string name="device_add_already_bind">The device has been bound</string>
+    <string name="device_add_connect">You can ask the account: </string>
+    <string name="device_add_connect_2"> to share the device for you or unbind the device.</string>
+    <string name="device_add_device_name">Device name: </string>
+    <string name="device_add_failed">Failed</string>
+    <string name="device_add_failed_tip">FAQ:\n*The device is not in the distribution network mode\n*WIFI password was entered incorrectly\n*The network signal of the device connection is poor\n*You need to make sure you add devices to the wireless network using 2G spectrum</string>
+    <string name="device_add_question">Are you ensure cancel this adding</string>
+    <string name="device_add_success">Success</string>
+    <string name="device_add_success_tip">find devices</string>
+    <string name="device_add_title">Add Device</string>
+    <string name="device_alarm">Alarm</string>
+    <string name="device_control_change">Device status has been changed.</string>
+    <string name="device_control_lost">Connection lost.</string>
+    <string name="device_control_title">Device Detail</string>
+    <string name="device_countdown">Countdown</string>
+    <string name="device_delete_content">Sure to delete device?</string>
+    <string name="device_delete_failed">Delete Failed.</string>
+    <string name="device_delete_title">DELETE</string>
+    <string name="device_detail_off">Device is off</string>
+    <string name="device_detail_on">Device is on</string>
+    <string name="device_is_offline">Device is offline, cannot control it. Click long to change name or delete it.</string>
+    <string name="device_is_offline_my_list">Device is offline, cannot control it.</string>
+    <string name="device_list_add">Add</string>
+    <string name="device_list_name">name</string>
+    <string name="device_list_state">on</string>
+    <string name="device_list_title">Home</string>
+    <string name="device_locate">Located in </string>
+    <string name="device_receive">Shared from </string>
+    <string name="device_send">Shared to </string>
+    <string name="device_name">Device name</string>
+    <string name="device_name_change">CONFIRM</string>
+    <string name="device_off">OFF</string>
+    <string name="device_offline">OFFLINE</string>
+    <string name="device_on">ON</string>
+    <string name="device_option">Option</string>
+    <string name="device_setting_name">Name cannot be empty.</string>
+    <string name="device_setting_title">Device Settings</string>
+    <string name="device_settings_delete">Delete</string>
+    <string name="device_settings_delete_title">DELETE</string>
+    <string name="device_settings_share">SHARE</string>
+    <string name="device_settings_share_desc">Share Device To Friends</string>
+    <string name="device_settings_unbind">Unbind</string>
+    <string name="device_settings_unbind_title">UNBIND</string>
+    <string name="device_shared_qrcode_desc">Welcome friends to enjoy the device!</string>
+    <string name="device_shared_qrcode_title">Scan And Enjoy</string>
+    <string name="device_shared_title">Device Share</string>
+    <string name="device_sharing_left">Back</string>
+    <string name="device_sharing_no_device_received">You don\'t have received sharing device.</string>
+    <string name="device_sharing_no_device_sent">You don\'t have sent sharing device.</string>
+    <string name="device_sharing_received">Received sharing</string>
+    <string name="device_sharing_sent">Sent sharing</string>
+    <string name="device_sharing_title">Device Share</string>
+    <string name="device_sharing_with_email">Or, Share with Friend\'s Email...</string>
+    <string name="device_started_title">Get Started</string>
+    <string name="device_switch">Switch</string>
+    <string name="device_switch_close">Close</string>
+    <string name="device_switch_open">Open</string>
+    <string name="device_unbind">Unbind Success!</string>
+    <string name="device_unbind_content">Sure to unbind device?</string>
+    <string name="device_unbind_title">UNBIND</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_download_cancel">CANCEL</string>
+    <string name="dialog_download_tittle">Dialog title</string>
+    <string name="dialog_loading">  LOADING...</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_results">RESULTS</string>
+    <string name="download_cancel">Cancel</string>
+    <string name="download_title">Downloading...</string>
+    <string name="edit_timer_title">Edit Timer</string>
+    <string name="error_qrcode">Error QRcode.</string>
+    <string name="everyday">everyday</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="feedback_from">From:</string>
+    <string name="feedback_label">I didn\'t see my device.</string>
+    <string name="feedback_label2">About this Home App</string>
+    <string name="feedback_photo">Up to three</string>
+    <string name="feedback_submit">Submit</string>
+    <string name="feedback_text">Please verify your device:\n● is within 20 feet of this mobile device\n● is powered on, and white indicator light…</string>
+    <string name="feedback_text2">The Home App can help you to control your devices like lights, switchs, sockets, and so on. It can make your home smartly...</string>
+    <string name="feedback_tip">Feedback cannot be empty.</string>
+    <string name="feedback_title">guess you are filling feedback for...</string>
+    <string name="forget_password_email">The email cannot be empty</string>
+    <string name="forget_password_tip">The email or PIN cannot be empty</string>
+    <string name="get_started_button">GET STARTED</string>
+    <string name="get_started_device_name">Bull Socket</string>
+    <string name="get_started_device_name_title">DEVICE NAME</string>
+    <string name="help_feedback_title">Help &amp; Feedback</string>
+    <string name="hint">please write your feedback here...</string>
+    <string name="home_add_hint">ex.Jack\'s Home</string>
+    <string name="home_administrator_transfer_btn">Transfer Administrator</string>
+    <string name="home_administrator_transfer_info">This Home will be transferred to new Administrator.And all members will be reserved.</string>
+    <string name="home_administrator_transfer_title">TRANSFER ADMINISTRATOR</string>
+    <string name="home_choice_add_button">Add Home...</string>
+    <string name="home_choice_add_title">BUILD A NEW HOME</string>
+    <string name="home_choice_title">HOMES</string>
+    <string name="home_edit_delete_button">Delete Home</string>
+    <string name="home_edit_home">home</string>
+    <string name="home_edit_title1">HOME NAME</string>
+    <string name="home_edit_title2">FAMILY MEMBER</string>
+    <string name="home_edit_title3">DELETE Home</string>
+    <string name="home_member_delete">DELETE MEMBER</string>
+    <string name="home_member_delete_button">Delete Member</string>
+    <string name="home_member_exit">Exit family</string>
+    <string name="home_member_exit_title">EXIT FAMILY</string>
+    <string name="home_member_set">set as Administrator</string>
+    <string name="home_member_transfer">Transfer home</string>
+    <string name="home_member_transfer_title">TRANSFER HOME</string>
+    <string name="hours">H</string>
+    <string name="indicator_desc">1.Confirm the indicator light rapidly blinks.</string>
+    <string name="indicator_reminder">2.If the indicator light does not blinks, please hold the reset button for 5s.</string>
+    <string name="indicator_reminder2">3.Please configure the network under the 2.4G WiFi network.</string>
+    <string name="local_state">Local state. Can not delete or change device.</string>
+    <string name="local_state_countdown">Local state. Can not set countdown or alarms.</string>
+    <string name="local_state_login_first">Local state. Please login first.</string>
+    <string name="login_conflict_content">Your account has been logged in elsewhere</string>
+    <string name="login_conflict_title">Warning</string>
+    <string name="long_click_change_name">Change Name</string>
+    <string name="long_click_delete">Delete</string>
+    <string name="minutes">M</string>
+    <string name="never">only once</string>
+    <string name="new_name_hint">New Name</string>
+    <string name="no_divice">No Devices</string>
+    <string name="no_production">No Production</string>
+    <string name="no_timer_list">No Timer.</string>
+    <string name="only_once">only once</string>
+    <string name="permission_camera">Please accept camera permission first.</string>
+    <string name="permission_location">Please accept location permission first.</string>
+    <string name="permission_storage">Please accept storage permission first.</string>
+    <string name="permission_zxing">If your screen is black, please accept camera permission first.</string>
+    <string name="pop_connect_button">connect</string>
+    <string name="pop_connect_wifi">Please connect 2.4G WIFI</string>
+    <string name="pop_input_wifi_change">Change WIFI</string>
+    <string name="pop_input_wifi_next">Next</string>
+    <string name="pop_input_wifi_ssid">unknown ssid</string>
+    <string name="pop_mqtt_pub_off">OFF</string>
+    <string name="pop_mqtt_pub_on">ON</string>
+    <string name="pop_mqtt_pub_unbind">UNBIND</string>
+    <string name="pop_select_photo_tip1">Select from album</string>
+    <string name="pop_select_photo_tip2">Camera</string>
+    <string name="product_type_list_none">No Production</string>
+    <string name="product_type_name">name</string>
+    <string name="production_list_tip">There has no more production</string>
+    <string name="qrcode_scan_information">You can find received devices in Profile -> Shared Devices.</string>
+    <string name="recover_password_reminder">Enter the account you want to recover.</string>
+    <string name="recover_password_title">Recover Login Password</string>
+    <string name="room_detail_cancel">Cancel</string>
+    <string name="room_detail_change_bg">Change Background</string>
+    <string name="room_detail_delete">Delete Room</string>
+    <string name="room_detail_edit_name">Edit Name</string>
+    <string name="room_detail_tip1">Edit</string>
+    <string name="room_detail_tip2">information of this room</string>
+    <string name="room_edit_add">Add Room...</string>
+    <string name="room_edit_footer">ADD A NEW ROOM</string>
+    <string name="room_list_add">Add</string>
+    <string name="room_list_title">Room</string>
+    <string name="room_delete_confirm">If you delete the room, the devices inside will also be deleted. Are you sure to delete the room?</string>
+    <string name="screenshot">SCREENSHOT OR PHOTOS</string>
+    <string name="set_new_password_button">SIGN IN</string>
+    <string name="set_new_password_hint1">New password</string>
+    <string name="set_new_password_hint2">Confirm password</string>
+    <string name="set_new_password_reminder">Please set your login password.</string>
+    <string name="set_new_password_title">Set New Password</string>
+    <string name="sharing_email_cannot_be_empty">Email can not be empty.</string>
+    <string name="sharing_key_email">Please key friend\'s email</string>
+    <string name="ssl_date_invalid">The date of the certificate is invalid.</string>
+    <string name="ssl_error">Certificate verification failure.</string>
+    <string name="ssl_error_cancel">Cancel</string>
+    <string name="ssl_error_confirm">Sure</string>
+    <string name="ssl_expired">The certificate has expired.</string>
+    <string name="ssl_handler_process">Are you sure to visit this URL?</string>
+    <string name="ssl_invalid">A generic error occurred.</string>
+    <string name="ssl_is_mismatch">Hostname mismatch.</string>
+    <string name="ssl_not_yet_valid">The certificate is not yet valid.</string>
+    <string name="ssl_untrusted">The certificate authority is not trusted.</string>
+    <string name="ssl_warning_title">Warning</string>
+    <string name="submit_btn">SUBMIT FEEDBACK</string>
+    <string name="time_day_setting_title">Repetition</string>
+    <string name="timer_add_never">only once</string>
+    <string name="timer_add_repeat">Repeat</string>
+    <string name="timer_add_state">Device State</string>
+    <string name="timer_add_tag">Category</string>
+    <string name="timer_change_never">never</string>
+    <string name="timer_change_repeat">Repeat</string>
+    <string name="timer_change_state">State</string>
+    <string name="timer_day_friday">Friday</string>
+    <string name="timer_day_monday">Monday</string>
+    <string name="timer_day_saturday">Saturday</string>
+    <string name="timer_day_sunday">Sunday</string>
+    <string name="timer_day_thursday">Thursday</string>
+    <string name="timer_day_tuesday">Tuesday</string>
+    <string name="timer_day_wednesday">Wednesday</string>
+    <string name="timer_title_cancel">Cancel</string>
+    <string name="timer_title_save">Save</string>
+    <string name="tip">from:zhouwei20150901@gmail.com</string>
+    <string name="title_back">Back</string>
+    <string name="title_title">title</string>
+    <string name="toast">toast</string>
+    <string name="update_failed">Update Failed.</string>
+    <string name="version_latest">Current version is the lasted.</string>
+    <string name="version_no_new">There is no new version</string>
+    <string name="wifi_password_hint">Please enter the password of wifi</string>
+
+
     <string name="profile_change_your_name_title">Change your nickname</string>
     <string name="action_settings">Settings</string>
     <string name="sign_up_tip_string">Please enter your email and password.</string>
@@ -12,7 +295,6 @@
     <string name="log_in_change_pwd">Change password</string>
     <string name="log_in_forget_pwd">Forget password</string>
     <string name="log_in_password">Please enter your password.</string>
-    <string name="sign_up_password">Please enter your password.</string>
     <string name="change_password_old_text">Old password</string>
     <string name="change_password_old">Please enter your old password.</string>
     <string name="change_password_new_text">New password</string>
@@ -21,6 +303,147 @@
     <string name="receive_shared_device">Received Shared Devices</string>
     <string name="profile_feedback">Feedback</string>
     <string name="profile_log_out">Logout</string>
+    <string name="log_in_remember_pwd">Remember password</string>
+
+    <!--首页（无设备）-->
+    <string name="no_device_title">No Devices</string>
+    <string name="no_device_describe">No equipment, please add</string>
+    <string name="main_home">Home</string>
+    <string name="main_room">Room</string>
+    <string name="main_profile">Profile</string>
+
+    <!--登录-->
+    <string name="sign_label">Sign in</string>
+    <string name="sign_tip">with your email address</string>
+    <string name="sign_email">Email</string>
+    <string name="sign_password">Password</string>
+    <string name="sign_forgot">Forgot your password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">Don\'t have an account? </string>
+    <string name="sign_register">Sign up</string>
+    <string name="sign_in_empty">The Email or Password cannot be empty.</string>
+
+    <!--注册-->
+    <string name="sign_up_label">Sign up</string>
+    <string name="sign_up_tip">Please enter your email and PIN.</string>
+    <string name="sign_ev_email">\ Please enter your email address.</string>
+    <string name="sign_up_pin">PIN</string>
+    <string name="sign_up_enter_pin">\ Please enter your PIN.</string>
+    <string name="sign_up_send">Send</string>
+    <string name="sign_up_btn">SIGN UP</string>
+    <string name="sign_up_terms">By clicking SIGN UP, you agree to our</string>
+    <string name="sign_terms">Terms and</string>
+    <string name="sign_up_conditions">Conditions</string>
+    <string name="sign_up_match">Passwords do not match</string>
+    <string name="sign_up_password">The password cannot be empty</string>
+
+    <!--设置密码-->
+    <string name="set_p_label">Set Password</string>
+    <string name="set_p_tip">Please set your login password</string>
+    <string name="set_p_account">\ zhouwei20150901@gmail.com</string>
+    <string name="set_password">\ Password</string>
+    <string name="set_p_confirm">\ Confirm password</string>
+    <string name="set_start">GET STARTED</string>
+
+    <!--条款-->
+    <string name="terms_terms">Terms</string>
+
+    <!--个人中心-->
+    <string name="profile_title">Profile</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_menu_device_homes">My Homes</string>
+    <string name="profile_menu_device_list">My Devices</string>
+    <string name="profile_menu_device_sharing">Devices sharing</string>
+    <string name="profile_menu_integration">Integration</string>
+    <string name="profile_menu_virtual_center">Experience Center</string>
+    <string name="profile_menu_help_feedback">Help &#38; Feedback</string>
+    <string name="profile_menu_setting">Settings</string>
+    <string name="connection_lost">%1$s has lost connection to %2$s</string>
+    <string name="messageRecieved">Received message %1$s &lt;br/&gt; &lt;small&gt;Topic: %2$s &lt;/small&gt; </string>
+    <string name="toast_pub_success">Published message: %1$s to topic: %2$s</string>
+    <string name="toast_sub_success">Subscribed to %1$s</string>
+    <string name="toast_disconnected">Disconnected</string>
+    <string name="toast_pub_failed">Failed to publish message: %1$s to topic: %2$s</string>
+    <string name="toast_sub_failed">Failed to subscribe to %1$s</string>
+    <string name="timestamp">&lt;br/&gt; &lt;small&gt; %1$s &lt;/small&gt;</string>
+    <string name="connection_connected_to">Connected to</string>
+    <string name="connection_disconnected_from">Disconnected from</string>
+    <string name="connection_unknown_status">Unknown connection status to</string>
+    <string name="connection_connecting_to">Connecting to</string>
+    <string name="connection_disconnecting_from">Disconnecting from</string>
+    <string name="connection_error_connecting_to">An error occurred connecting to</string>
+    <string name="connection_clear">Clear</string>
+    <string name="permissions_failed">Some permissions are been denied.</string>
+
+
+    <!--设置-->
+    <string name="setting_title">GENERAL</string>
+    <string name="setting_choice1">Multiple Language</string>
+    <string name="setting_title2">ABOUT</string>
+    <string name="setting_choice3">About</string>
+
+    <!--第三方接入-->
+    <string name="integration">Integration</string>
+
+
+    <!--个人中心-->
+    <string name="personal_name">Name</string>
+    <string name="personal_email">Email</string>
+    <string name="personal_login">Sign in</string>
+    <string name="personal_logout">Logout</string>
+    <string name="personal_change_password">Change Login Password</string>
+    <string name="scanQR_code">please scan QRcode</string>
+    <string name="profile_Update">UPDATE</string>
+    <string name="profile_update">Update</string>
+    <string name="my_device_title">My Devices</string>
+    <string name="profile_change_name_title">Change Name</string>
+    <string name="personal_title">Profile</string>
+    <string name="confirm_exit_title">LOGOUT</string>
+    <string name="confirm_exit_tip">Sure to logout？</string>
+    <string name="product_list_title">Add Device</string>
+    <string name="permission_failed">The storage permission is denied</string>
+
+    <!--家庭-->
+    <string name="home_choice_list_title">Homes</string>
+    <string name="home_choice_list_title_right">Edit</string>
+    <string name="home_add_title">New Home</string>
+    <string name="home_add_title_right">Save</string>
+    <string name="home_edit_title">Home</string>
+    <string name="home_edit_title_right">Done</string>
+    <string name="home_menber_title">Family Member</string>
+
+    <!--家庭编辑-->
+    <string name="home_edit_member">member</string>
+    <string name="home_edit_host">administrator</string>
+    <string name="home_edit_deny">permission denied</string>
+    <string name="home_edit_invite">invite other family member</string>
+
+    <!--房间-->
+    <string name="room_add_title">Add room</string>
+    <string name="text_save">Save</string>
+    <string name="room_bg_add">Select background</string>
+    <string name="room_name_cannot_empty">Room\'s name cannot be empty！</string>
+    <string name="home_name_cannot_empty">Home\'s name cannot be empty！</string>
+
+    <!--房间编辑-->
+    <string name="room_edit_tip1">room</string>
+    <string name="room_edit_default">default room</string>
+    <string name="room_edit_living">living room</string>
+    <string name="room_edit_bedroom">bedroom</string>
+    <string name="room_edit_kitchen">kitchen</string>
+    <string name="room_edit_tip2">add new home</string>
+    <string name="single_room_edit_name">Room name</string>
+    <string name="single_room_edit_background">background</string>
+    <string name="single_room_edit_delete">delete room</string>
+    <string name="single_room_delete">delete room</string>
+    <string name="item_room_name">room name</string>
+    <string name="item_room_nodevice">no device</string>
+
+
+    <!--二维码显示界面-->
+    <string name="qrcode_show_invite_title">invite member</string>
+    <string name="qrcode_show_share_device">share device</string>
+    <string name="qrcode_show_transfer_home">transfer home</string>
 
     <!--灯泡相关-->
     <string name="light_detail_title">Light bulb control</string>
@@ -57,17 +480,17 @@
     <string name="forget_passwd_verify_success">Verify Pin success.</string>
 
     <!--登录-->
-    <string name="login_cannot_empty">email or password can not be empty</string>
+    <string name="login_cannot_empty">Email or password can not be empty.</string>
+    <string name="login_password_too_short">The length of password can not be shorter than 6.</string>
     <string name="login_auto_success">Auto login success!</string>
-    <string name="login_failed">login fail</string>
+    <string name="login_failed">Login fail!</string>
     <!--产品列表-->
     <string name="production_list">Production List</string>
     <string name="production_list_get_fail">Get productions fail.</string>
     <!--设置新密码-->
     <string name="set_new_psw_success">Set new password success.</string>
     <string name="set_new_psw_fail">Set new password failed.</string>
-    <string name="toast_share_success">Share success.</string>
-    <string name="toast_share_fail">Share failed.</string>
+
 
     <string name="device_delete_fail">delete fail.</string>
     <!--注册-->
@@ -83,4 +506,161 @@
     <string name="pop_remove_device">Remove Device</string>
     <string name="pop_cancel">Cancel</string>
     <string name="share_device_enter">Please enter your friend\'s email account.</string>
+
+
+    <string name="toast_share_success">Share success.</string>
+    <string name="toast_share_fail">Share failed.</string>
+    <string name="toast_invite_success">Invite success.</string>
+    <string name="toast_invite_fail">Invite failed.</string>
+    <string name="toast_transfer_success">Transfer home success.</string>
+    <string name="toast_transfer_fail">Invite member failed.</string>
+
+
+    <string name="main_scene">Scene</string>
+
+    <!--场景-->
+    <string name="scene_title">Smart Scenes</string>
+    <string name="scene_add_title">Add Scene</string>
+    <string name="scene_edit_title">Edit Scene</string>
+    <string name="scene_add_set_name">Set name</string>
+    <string name="scene_add_set_time">Set time</string>
+    <string name="scene_add_set_week">Set week</string>
+    <string name="scene_add_add_device">Add device</string>
+
+    <string name="scene_delete_content">Sure to delete scene?</string>
+    <string name="scene_delete_device_content">Sure to delete device?</string>
+    <string name="scene_device_refresh_fail">Refresh failed.</string>
+    <string name="scene_device_reset_fail">Reset failed.</string>
+    <string name="scene_light_function_power">On/Off</string>
+    <string name="scene_light_function_white">White light</string>
+    <string name="scene_light_function_rgb">Colored light</string>
+    <string name="scene_light_function_flow">Flow light</string>
+    <string name="scene_light_functions">Functions</string>
+    <string name="scene_sort_tag_manual">Manual execution</string>
+    <string name="scene_sort_tag_timing">Timed execution</string>
+    <string name="scene_toast_no_action">Cannot set scenes without action.</string>
+    <string name="scene_toast_edit_success">Edit success!</string>
+    <string name="scene_toast_add_success">Add success!</string>
+    <string name="scene_toast_edit_fail">Edit failed!</string>
+    <string name="scene_toast_add_fail">Add failed!</string>
+    <string name="scene_toast_home_no_device">No device in current home, please add device or switch home.</string>
+    <string name="scene_notice_add_scene">Add smart scenes</string>
+    <string name="scene_notice_type_select">Type selection</string>
+    <string name="scene_type_manual">Manual</string>
+    <string name="scene_type_timing">Timed</string>
+    <string name="scene_add_timing">Set time</string>
+    <string name="scene_add_action">Add action</string>
+    <string name="scene_time">Time</string>
+    <string name="scene_action">Action</string>
+    <string name="scene_name_empty_notice">Scene name cannot be empty.</string>
+    <string name="scene_name_or_time_empty_notice">Scene name or execution time cannot be empty.</string>
+    <string name="scene_none">No data</string>
+    <string name="scene_add">Add Scene</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="device_online">online</string>
+
+    <string name="toast_press_again">Press again to exit application</string>
+    <string name="toast_change_room_bg_success">Modify the background of room successfully</string>
+    <string name="toast_change_room_name_success">Modify the name of the room successfully</string>
+    <string name="toast_add_room_success">Adding room successfully</string>
+    <string name="toast_room_name_empty">Room name cannot be empty</string>
+    <string name="toast_auto_login_success">Automatic login success</string>
+    <string name="toast_delete_device_success">Device deleted successfully</string>
+    <string name="toast_delete_scene_success">Scene deleted successfully</string>
+    <string name="toast_delete_room_success">Room deleted successfully</string>
+    <string name="toast_delete_timer_success">Timed deletion succeeded</string>
+    <string name="toast_execute_success">Execution succeed!</string>
+    <string name="toast_edit_timer_success">Modify timing success</string>
+    <string name="toast_change_pwd_success">Password has been updated</string>
+    <string name="toast_delete_sharing_success">Sharing device deleted successfully</string>
+    <string name="toast_delete_shared_success">Shared device deleted successfully</string>
+    <string name="toast_add_share_success">Device sharing success</string>
+    <string name="toast_feedback_success">Feedback submitted successfully</string>
+
+    <!--错误码对应字符串-->
+    <string name="network_error">Network Error : </string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="response10001">No access to this interface</string>
+    <string name="response10002">Interaction failure</string>
+    <string name="response10003">Parameter is empty</string>
+    <string name="response10101">Failed to send verification code</string>
+    <string name="response10102">This username is not registered</string>
+    <string name="response10201">Email address and verification code could be not empty</string>
+    <string name="response10202">Failed to verify code. Please make sure the code is correct</string>
+    <string name="response10301">Failed to send verification code</string>
+    <string name="response10302">This user is already registered</string>
+    <string name="response10401">The account is disabled</string>
+    <string name="response10402">Failed to get user information</string>
+    <string name="response10501">Failed to set password</string>
+    <string name="response10602">Password could not be less than 6 letters</string>
+    <string name="response10603">Old password is incorrect</string>
+    <string name="response10701">Email address is invalid</string>
+    <string name="response10702">Username already exists</string>
+    <string name="response10703">Incorrect username or password</string>
+    <string name="response10704">Password can not be empty</string>
+    <string name="response10705">The user is disabled, please contact customer service</string>
+    <string name="response10801">Device could not be found</string>
+    <string name="response10802">Device could not be shared</string>
+    <string name="response10803">Device could not be shared to the home member</string>
+    <string name="response10804">Device is already shared to this user</string>
+    <string name="response10901">This device could not be removed</string>
+    <string name="response10902">Failed to remove device</string>
+    <string name="response11001">Device name already exist</string>
+    <string name="response11101">Failed to cancel device share</string>
+    <string name="response11201">Device name can not be used. Please try another name.</string>
+    <string name="response11301">Sharing failed:The qrCode is expired</string>
+    <string name="response11302">The qrcode is invalid</string>
+    <string name="response11303">Device could not be shared to the home member</string>
+    <string name="response11304">The device is already in your received sharing device list</string>
+    <string name="response11401">The qrCode is expired</string>
+    <string name="response11402">Default home could not be transformed</string>
+    <string name="response11501">Failed to update home name</string>
+    <string name="response11601">User does not exist</string>
+    <string name="response11701">You are not the member of the home</string>
+    <string name="response11702">Default home could not be deleted</string>
+    <string name="response11801">The qrCode is expired</string>
+    <string name="response11802">This user is already in your home</string>
+    <string name="response11803">Failed to add member</string>
+    <string name="response11901">Home does not exist</string>
+    <string name="response12001">You are not the Administrator of the home</string>
+    <string name="response12101">Only the host could add room</string>
+    <string name="response12102">Please choose another name</string>
+    <string name="response12103">Default room could not be add</string>
+    <string name="response12201">Failed to get room devices</string>
+    <string name="response12301">The room does not exist</string>
+    <string name="response12302">Default room could not be removed</string>
+    <string name="response12401">Please choose another name</string>
+    <string name="response12501">Change device room failed!</string>
+    <string name="response12601">Set device to room failed!</string>
+    <string name="response12602">This device does not belongs to you!</string>
+    <string name="response20101">You can not add more than 32 timers.</string>
+    <string name="response20201">No device in this scene</string>
+    <string name="response20301">Failed to add clock</string>
+    <string name="response20302">Failed to update clock</string>
+    <string name="response20401">Failed to update scene status</string>
+    <string name="response20501">Failed to get devices</string>
+    <string name="response20601">Reset failed device error</string>
+    <string name="response20701">Delete failed device error</string>
+
+    <string name="device_settings_edit">Change room</string>
+    <string name="device_settings_edit_success">Change room success!</string>
+
+    <!--商城-->
+    <string name="mall_title">MALL</string>
+    <string name="main_mall">Mall</string>
+    <string name="mall_to_taobao">We are opening Taobao, please wait a moment...</string>
+
+    <!--插排-->
+    <string name="strip_close">CLOSE</string>
+    <string name="strip_open">OPEN</string>
+    <string name="strip_title">Device Detail</string>
+    <string name="strip_s1">S1</string>
+    <string name="strip_s2">S2</string>
+    <string name="strip_s3">S3</string>
+
+
+    <string name="no_network_toast">You can\'t use app without networks.</string>
+
+
 </resources>

@@ -13,7 +13,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.d9lab.ati.whatiesdk.event.DeviceStatusNotifyEvent;
 import com.whatie.ati.androiddemo.R;
+import com.whatie.ati.androiddemo.utils.ToastUtil;
 import com.whatie.ati.androiddemo.widget.CircleImageView;
 import com.whatie.ati.androiddemo.widget.ColorBar;
 import com.d9lab.ati.whatiesdk.bean.DeviceVo;
@@ -218,13 +220,14 @@ public class FlowColorDetailActivity extends BaseActivity implements View.OnClic
         EHomeInterface.getINSTANCE().setLightFlow(devId, rgb1, rgb2, rgb3, rgb4, tValue, lValue);
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveLightModeEvent event) {
-        switch (event.getLightMode()){
-            case Code.FLOW_MODE_CONTROL:
-                mHandler.removeCallbacks(mRunnable);
-                btnFlowDetailApply.setClickable(true);
-                break;
+    public void onEventMainThread(DeviceStatusNotifyEvent event) {
+        if(event.getmDeviceVo().getDevice().getDevId().equals(mDeviceVo.getDevice().getDevId()) &&
+                Integer.parseInt(event.getmDeviceVo().getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_LIGHTMODE)) == Code.LIGHT_MODE_FLOW) {
+            mHandler.removeCallbacks(mRunnable);
+            btnFlowDetailApply.setClickable(true);
+            ToastUtil.showShort(mContext, R.string.set_flow_success);
         }
     }
 }

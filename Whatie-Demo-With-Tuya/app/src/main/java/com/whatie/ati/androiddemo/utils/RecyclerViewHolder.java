@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.whatie.ati.androiddemo.R;
 import com.whatie.ati.androiddemo.constants.Constants;
+import com.whatie.ati.androiddemo.widget.SwitchButton;
 import com.whatie.ati.androiddemo.widget.togglebutton.ToggleButton;
 import com.d9lab.ati.whatiesdk.util.LogUtil;
 import com.lzy.okgo.OkGo;
@@ -153,7 +154,16 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(listener);
         return this;
     }
-
+    public RecyclerViewHolder setSwitchButtonState(int viewId, boolean state) {
+        SwitchButton view = findViewById(viewId);
+        view.setChecked(state);
+        return this;
+    }
+    public RecyclerViewHolder setClickListener(int viewId, SwitchButton.OnShortClickListener listener) {
+        SwitchButton view = findViewById(viewId);
+        view.setOnShortClickListener(listener);
+        return this;
+    }
     public RecyclerViewHolder setLongClickListener(int viewId, View.OnLongClickListener listener) {
         View view = findViewById(viewId);
         view.setOnLongClickListener(listener);

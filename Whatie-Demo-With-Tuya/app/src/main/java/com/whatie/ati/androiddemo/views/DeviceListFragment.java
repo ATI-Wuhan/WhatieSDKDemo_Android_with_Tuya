@@ -21,12 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.d9lab.ati.whatiesdk.event.DeviceStatusNotifyEvent;
 import com.whatie.ati.androiddemo.R;
 import com.whatie.ati.androiddemo.constants.EhomeResource;
 import com.whatie.ati.androiddemo.database.db.DeviceDaoOpe;
 import com.whatie.ati.androiddemo.utils.BaseRecyclerAdapter;
 import com.whatie.ati.androiddemo.utils.NetworkUtils;
 import com.whatie.ati.androiddemo.utils.RecyclerViewHolder;
+import com.whatie.ati.androiddemo.utils.ToastUtil;
 import com.whatie.ati.androiddemo.widget.MySwipeRefreshLayout;
 import com.d9lab.ati.whatiesdk.bean.BaseListResponse;
 import com.d9lab.ati.whatiesdk.bean.BaseResponse;
@@ -44,6 +47,7 @@ import com.d9lab.ati.whatiesdk.event.MqttReceiveUnbindEvent;
 import com.d9lab.ati.whatiesdk.util.Code;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lzy.okgo.model.Response;
+import com.whatie.ati.androiddemo.widget.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -51,6 +55,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -207,65 +212,56 @@ public class DeviceListFragment extends BaseFragment {
                 return R.layout.item_device;
             }
 
+
             @Override
             public void bindData(RecyclerViewHolder holder, int position, final DeviceVo item) {
 
                 final String productName = item.getProductName();
+                Log.d(TAG, "BindViewData:  status=========================" + item.getDevice().getStatus());
 
                 holder.setText(R.id.tv_device_item_name, item.getDevice().getName());
-                holder.setText(R.id.tv_device_local, item.getRoomName());
-                holder.saveImageCache(R.id.iv_device_icon, item.getDevice().getProduct().getPictureThumb().getPath(), item.getDevice().getProduct().getName());
 
-                Log.d(TAG, "bindData:Boolean      " + Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY)));
-                Log.d(TAG, "bindData:             " + item.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY));
+                Log.d(TAG, "BindViewData:Boolean      " + Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_POWER)));
+                Log.d(TAG, "BindViewData:             " + item.getFunctionValuesMap().get(Code.FUNCTION_MAP_POWER));
                 //判断设备是否在线
                 //在线：有网+设备状态正常  或者  连接了tcp
+                Log.d(TAG, "BindViewData: status  " + item.getDevice().getStatus().equals(Code.DEVICE_STATUS_NORMAL));
+
+                Log.d(TAG, "BindViewData: mqtton  " + EHome.getInstance().isMqttOn());
                 if ((item.getDevice().getStatus().equals(Code.DEVICE_STATUS_NORMAL) && NetworkUtils.isAvailable(mContext) && EHome.getInstance().isMqttOn())
                         || EHome.getLinkedTcp().containsKey(item.getDevice().getDevId())) {
-                    if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName)) {
-                        if ("0".equals(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_COLOR_LIGHT))) {
-                            holder.setToggleState(R.id.sw_device_item, false);
-                            holder.setText(R.id.tv_device_item_state, getString(R.string.device_off));
-                            holder.setTextColor(R.id.tv_device_item_state, getResources().getColor(R.color.device_off));
-                        } else {
-                            holder.setToggleState(R.id.sw_device_item, true);
-                            holder.setText(R.id.tv_device_item_state, getString(R.string.device_on));
-                            holder.setTextColor(R.id.tv_device_item_state, getResources().getColor(R.color.device_on));
-                        }
-                    } else if (Code.PRODUCT_TYPE_PLUG.equals(productName)) {
-                        holder.setToggleState(R.id.sw_device_item, Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY)));
-                        holder.setText(R.id.tv_device_item_state, (Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_POWER)) ? getString(R.string.device_on) : getString(R.string.device_off)));
-                        holder.setTextColor(R.id.tv_device_item_state, (Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_POWER)) ? getResources().getColor(R.color.device_on) : getResources().getColor(R.color.device_off)));
 
-                    }
-                    holder.setClickListener(R.id.sw_device_item, new View.OnClickListener() {
+                    holder.setSwitchButtonState(R.id.sw_device_item, Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER)));
+                    holder.setClickListener(R.id.sw_device_item, new SwitchButton.OnShortClickListener() {
                         @Override
-                        public void onClick(View v) {
-
+                        public void onClicked(SwitchButton view) {
                             if (Code.PRODUCT_TYPE_PLUG.equals(productName)) {
                                 Log.d(TAG, "onClick: " + item.getDevice().getStatus());
-                                if (Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_KEY))) {
-                                    EHomeInterface.getINSTANCE().updateOutletsStatus(item.getDevice().getDevId(), false);
-                                } else {
-                                    EHomeInterface.getINSTANCE().updateOutletsStatus(item.getDevice().getDevId(), true);
-                                }
-                            } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName)) {
-                                if ("0".equals(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_COLOR_LIGHT))) {
-                                    Log.d(TAG, "bindData:ColorLight      item.getDevice().getDevId(), true");
-                                    sendLightPowerInst(item.getDevice().getDevId(), true);
-                                } else {
-                                    Log.d(TAG, "bindData:ColorLight      item.getDevice().getDevId(), false");
-                                    sendLightPowerInst(item.getDevice().getDevId(), false);
-                                }
+                                EHomeInterface.getINSTANCE().updateOutletsStatus(item.getDevice().getDevId(), !Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER)));
+                            } else if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName) || Code.PRODUCT_TYPE_MONOLIGHT.equals(productName)) {
+                                sendLightPowerInst(item.getDevice().getDevId(), !Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER)));
+                            } else if (Code.PRODUCT_TYPE_STRIP.equals(productName)) {
+                                HashMap<String, Object> dps = new HashMap<>();
+                                dps.put(Code.STRIP_CONTROL_MODE, 0);
+                                dps.put(Code.STRIP_CONTROL_STATUS, !Boolean.parseBoolean(item.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER)));
+                                EHomeInterface.getINSTANCE().updateDeviceStatus(item.getDevice().getDevId(), Code.STRIP_CONTROL, dps);
                             }
+                        }
+                    });
 
+
+                    holder.setLongClickListener(R.id.rl_device_item, new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            showChangeDeviceWindow(item);
+                            return true;
                         }
                     });
 
                     holder.setClickListener(R.id.rl_device_item, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName)) {
+                            if (Code.PRODUCT_TYPE_RGBLIGHT.equals(productName) || Code.PRODUCT_TYPE_MONOLIGHT.equals(productName)) {
                                 Intent deviceControl = new Intent(getActivity(), LightDetailActivity.class);
                                 deviceControl.putExtra(Code.DEVICE, item);
                                 startActivity(deviceControl);
@@ -278,21 +274,19 @@ public class DeviceListFragment extends BaseFragment {
                     });
 
                 } else {
-
-                    holder.setClickListener(R.id.sw_device_item, new View.OnClickListener() {
+                    holder.setClickListener(R.id.sw_device_item, new SwitchButton.OnShortClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            Toast.makeText(mContext, getString(R.string.device_is_offline), Toast.LENGTH_SHORT).show();
-
+                        public void onClicked(SwitchButton view) {
+                            ToastUtil.showShort(mContext, R.string.device_is_offline);
                         }
                     });
-                    holder.setText(R.id.tv_device_item_state, getString(R.string.device_offline));
-                    holder.setTextColor(R.id.tv_device_item_state, getResources().getColor(R.color.device_off));
-                    holder.setToggleState(R.id.sw_device_item, false);
+
+
+                    holder.setSwitchButtonState(R.id.sw_device_item, false);
                     holder.setClickListener(R.id.rl_device_item, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(mContext, getString(R.string.device_is_offline), Toast.LENGTH_SHORT).show();
+                            ToastUtil.showShort(mContext, R.string.device_is_offline);
                         }
                     });
                     holder.setLongClickListener(R.id.rl_device_item, new View.OnLongClickListener() {
@@ -303,13 +297,6 @@ public class DeviceListFragment extends BaseFragment {
                         }
                     });
                 }
-                holder.setLongClickListener(R.id.rl_device_item, new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        showChangeDeviceWindow(item);
-                        return true;
-                    }
-                });
 
 
             }
@@ -368,56 +355,6 @@ public class DeviceListFragment extends BaseFragment {
         });
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveOnEvent event) {
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(true));
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        Log.d(TAG, "onEventMainThread: MqttReceiveOnEvent    " + event.getIndex());
-        mAdapter.notifyItemChanged(event.getIndex() + 1);
-//        mAdapter.notifyDataSetChanged();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveOffEvent event) {
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap().put(Code.FUNCTION_MAP_KEY, String.valueOf(false));
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getDevice().setStatus(Code.DEVICE_STATUS_NORMAL);
-        mAdapter.notifyItemChanged(event.getIndex() + 1);
-//        mAdapter.notifyDataSetChanged();
-        Log.d(TAG, "onEventMainThread: MqttReceiveOffEvent    " + event.getIndex());
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveUnbindEvent event) {
-        EHome.getInstance().getmDeviceVos().remove(event.getIndex());
-        Log.d(TAG, "onEventMainThread: MqttReceiveUnbindEvent " + event.getIndex());
-        mAdapter.notifyItemRemoved(event.getIndex() + 1);
-//        mAdapter.notifyDataSetChanged();
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveStatusEvent event) {
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getDevice().setStatus(event.getStatus());
-        mAdapter.notifyItemChanged(event.getIndex() + 1);
-//        mAdapter.notifyDataSetChanged();
-        Log.d(TAG, "onEventMainThread: MqttReceiveStatusEvent " + event.getIndex());
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveLightModeEvent event) {
-        Log.d(TAG, "onEventMainThread: MqttReceiveLightModeEvent " + event.getIndex());
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap().put(Code.FUNCTION_MAP_COLOR_LIGHT, String.valueOf(event.getlValue()));
-        mAdapter.notifyItemChanged(event.getIndex() + 1);
-
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveLightModePowerEvent event) {
-        Log.d(TAG, "onEventMainThread: MqttReceiveLightModePowerEvent " + event.getIndex());
-        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap().put(Code.FUNCTION_MAP_COLOR_LIGHT, "0");
-        mAdapter.notifyItemChanged(event.getIndex() + 1);
-
-    }
 
 
     private void setBackgroundAlpha(float f) {
@@ -559,6 +496,28 @@ public class DeviceListFragment extends BaseFragment {
                 break;
         }
 //        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
+    public void onEventMainThread(MqttReceiveUnbindEvent event) {
+        EHome.getInstance().getmDeviceVos().remove(event.getIndex());
+        Log.d(TAG, "onEventMainThread: MqttReceiveUnbindEvent " + event.getIndex());
+//        mAdapter.notifyItemRemoved(event.getIndex() + 1);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
+    public void onEventMainThread(MqttReceiveStatusEvent event) {
+        EHome.getInstance().getmDeviceVos().get(event.getIndex()).getDevice().setStatus(event.getStatus());
+        mAdapter.notifyItemChanged(event.getIndex() + 1);
+//        mAdapter.notifyDataSetChanged();
+        Log.d(TAG, "onEventMainThread: MqttReceiveStatusEvent " + event.getIndex());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
+    public void onEventMainThread(DeviceStatusNotifyEvent event) {
+        Log.d(TAG, "onEventMainThread: MqttReceiveStripStatusEvent");
+        mAdapter.notifyItemChanged(event.getIndex() + 1);
     }
 
 

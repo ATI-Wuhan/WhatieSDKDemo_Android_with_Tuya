@@ -11,25 +11,29 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.whatie.ati.androiddemo.R;
+
 import com.d9lab.ati.whatiesdk.bean.BaseResponse;
 import com.d9lab.ati.whatiesdk.bean.DeviceVo;
 import com.d9lab.ati.whatiesdk.bean.LightDetail;
 import com.d9lab.ati.whatiesdk.callback.BaseCallback;
 import com.d9lab.ati.whatiesdk.ehome.EHome;
 import com.d9lab.ati.whatiesdk.ehome.EHomeInterface;
-import com.d9lab.ati.whatiesdk.event.MqttReceiveLightModeEvent;
-import com.d9lab.ati.whatiesdk.event.MqttReceiveLightModePowerEvent;
+import com.d9lab.ati.whatiesdk.event.DeviceStatusNotifyEvent;
 import com.d9lab.ati.whatiesdk.util.Code;
+import com.d9lab.ati.whatiesdk.util.ParseUtil;
 import com.lzy.okgo.model.Response;
+import com.whatie.ati.androiddemo.R;
+
+import com.whatie.ati.androiddemo.utils.ToastUtil;
+import com.whatie.ati.androiddemo.views.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,8 +68,6 @@ public class LightDetailActivity extends BaseActivity {
     LinearLayout llWhiteButton;
     @BindView(R.id.fl_content)
     FrameLayout flContent;
-    @BindView(R.id.rl_title_bg)
-    RelativeLayout rlTitleBg;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_title_left)
@@ -74,6 +76,8 @@ public class LightDetailActivity extends BaseActivity {
     ImageView ivTitleRight;
     @BindView(R.id.tv_rom_version)
     TextView tvRomVersion;
+    @BindView(R.id.ll_navigation_tab)
+    LinearLayout llNavigationTab;
 
     private View viewShelter;
 
@@ -93,6 +97,7 @@ public class LightDetailActivity extends BaseActivity {
     };
 
     private static DeviceVo mDeviceVo;
+    private HashMap<String, String> functionValuesMap;
 
     @Override
     protected int getContentViewId() {
@@ -102,14 +107,17 @@ public class LightDetailActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        setStatusBarColor(R.color.white);
+        setTitleBarColor(R.color.white);
         viewShelter = findViewById(R.id.view_shelter);
-        rlTitleBg.setBackground(getResources().getDrawable(R.color.white));
         tvTitle.setTextColor(getResources().getColor(R.color.light_title_text_black));
         tvTitle.setText(R.string.light_detail_title);
         ivTitleLeft.setImageResource(R.drawable.ic_title_back_black);
         ivTitleRight.setVisibility(View.VISIBLE);
+        ivTitleRight.setImageResource(R.drawable.ic_light_timer);
         ivLightRGBL.setImageResource(R.drawable.ic_light_rgbl);
         ivLightFlow.setImageResource(R.drawable.ic_light_flow);
+
     }
 
     @Override
@@ -120,10 +128,13 @@ public class LightDetailActivity extends BaseActivity {
     @Override
     protected void initDatas() {
         mDeviceVo = (DeviceVo) getIntent().getSerializableExtra(Code.DEVICE);
-        if (mDeviceVo.isHost()) {
-            ivTitleRight.setImageResource(R.drawable.ic_device_setting);
-        } else {
-            ivTitleRight.setImageResource(R.drawable.ic_device_delete);
+//        if (mDeviceVo.isHost()) {
+//            ivTitleRight.setImageResource(R.drawable.ic_device_setting);
+//        } else {
+//            ivTitleRight.setImageResource(R.drawable.ic_device_delete);
+//        }
+        if (mDeviceVo.getProductName().equals(Code.PRODUCT_TYPE_MONOLIGHT)) {
+            llNavigationTab.setVisibility(View.GONE);
         }
         if(mDeviceVo.getDevice().getHardwareVersion() != null) {
             tvRomVersion.setText(mDeviceVo.getDevice().getHardwareVersion().getVersion());
@@ -136,6 +147,7 @@ public class LightDetailActivity extends BaseActivity {
         EHomeInterface.getINSTANCE().reSubscribeDeviceTopic(mDeviceVo.getDevice().getDevId());
 
     }
+
 
     @OnClick({R.id.ll_rgbl_button, R.id.ll_flow_button, R.id.ll_white_button, R.id.ll_title_left, R.id.btn_light_detail_power, R.id.ll_title_right})
     public void onViewClicked(View view) {
@@ -153,12 +165,12 @@ public class LightDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_title_right:
-                if (mDeviceVo.isHost()) {
-                    Intent intent = new Intent(LightDetailActivity.this, DeviceSettingActivity.class);
-                    intent.putExtra(Code.DEVICE, mDeviceVo.getDevice());
-                    startActivity(intent);
+                if (EHome.getInstance().isMqttOn()) {
+                    Intent alarmIntent = new Intent(this, TimerListActivity.class);
+                    alarmIntent.putExtra(Code.DEVICE, mDeviceVo);
+                    startActivity(alarmIntent);
                 } else {
-                    showExitConfirmDialog();
+                    ToastUtil.showShort(mContext, R.string.device_detail_cannot_set_alarm);
                 }
                 break;
             case R.id.btn_light_detail_power:
@@ -258,7 +270,7 @@ public class LightDetailActivity extends BaseActivity {
         llWhiteButton.setSelected(true);
     }
 
-    private void addOrShowFragment(Fragment fragment) {   //???
+    private void addOrShowFragment(android.support.v4.app.Fragment fragment) {
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -302,6 +314,13 @@ public class LightDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(mContext);
+    }
+
+
     private void showExitConfirmDialog() {
         if (mConfirmExitDialog != null) {
             mConfirmExitDialog = null;
@@ -312,24 +331,32 @@ public class LightDetailActivity extends BaseActivity {
                 .setPositiveButton(getString(R.string.confirm_device_title), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mLoadingDialog.show();
+
                         EHomeInterface.getINSTANCE().removeDevice(mContext, mDeviceVo.getDevice().getId(),
                                 new BaseCallback() {
                                     @Override
                                     public void onSuccess(Response<BaseResponse> response) {
                                         if (response.body().isSuccess()) {
                                             EHome.getInstance().removeDevice(mDeviceVo.getDevice().getDevId());
+
                                             startActivity(new Intent(LightDetailActivity.this, MainActivity.class));
                                         } else {
-                                            Toast.makeText(mContext, "delete fail.", Toast.LENGTH_SHORT).show();
+                                            if (response.body() != null) {
+                                                ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                                            } else {
+                                                ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                                            }
                                         }
                                     }
 
                                     @Override
                                     public void onError(Response<BaseResponse> response) {
                                         super.onError(response);
-                                        mLoadingDialog.dismiss();
-                                        Toast.makeText(mContext, "delete fail.", Toast.LENGTH_SHORT).show();
+                                        if (response.body() != null) {
+                                            ToastUtil.showShort(mContext, ToastUtil.codeToStringId(response.body().getCode()));
+                                        } else {
+                                            ToastUtil.showShort(mContext, getString(R.string.network_error) + response.code());
+                                        }
                                     }
                                 });
                     }
@@ -347,46 +374,44 @@ public class LightDetailActivity extends BaseActivity {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveLightModeEvent event) {
-        mHandler.removeCallbacks(mRunnable);
-        btnLightPower.setClickable(true);
-        switch (event.getLightMode()){
-            case Code.FLOW_MODE_CONTROL:
-                Log.d(TAG, "onEventMainThread: MqttReceiveLightModeFlowEvent");
-                toggleState(true);
-                int[] rgb1 = event.getRgb1();
-                int[] rgb2 = event.getRgb2();
-                int[] rgb3 = event.getRgb3();
-                int[] rgb4 = event.getRgb4();
-                int t =event.gettValue();
-                int l = event.getlValue();
-                showFlowControl(new LightDetail(rgb1, rgb2, rgb3, rgb4, t, l));
-                break;
-            case Code.LIGHT_MODE_L:
-                Log.d(TAG, "onEventMainThread: MqttReceiveLightModeLEvent");
-                toggleState(true);
-                int wl = event.getlValue();
-                showWhiteControl(new LightDetail(wl));
-                break;
-            case Code.LIGHT_MODE_RGBL:
-                Log.d(TAG, "onEventMainThread: MqttReceiveLightModeRGBLEvent");
-                toggleState(true);
-                int[] rgb = event.getRgb();
-                int lValue = event.getlValue();
-                showRGBLControl(new LightDetail(rgb, lValue));
-                break;
+    public void onEventMainThread(DeviceStatusNotifyEvent event) {
+        if(event.getmDeviceVo().getDevice().getDevId().equals(mDeviceVo.getDevice().getDevId())) {
+            mDeviceVo = event.getmDeviceVo();
+            mHandler.removeCallbacks(mRunnable);
+            btnLightPower.setClickable(true);
+            functionValuesMap = mDeviceVo.getFunctionValuesMap();
+            Log.d(TAG, "onEventMainThread:  " + EHome.getInstance().getmDeviceVos().get(event.getIndex()));
+            Log.d(TAG, "onEventMainThread:  " + functionValuesMap.toString());
+            toggleState(Boolean.parseBoolean(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_POWER)));
+            switch (Integer.parseInt(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_LIGHTMODE))){
+                case Code.LIGHT_MODE_FLOW:
+                    Log.d(TAG, "onEventMainThread: MqttReceiveLightModeFlowEvent");
+                    toggleState(true);
+                    int[] rgb1 = ParseUtil.rgbStringToInts(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_RGB1));
+                    int[] rgb2 = ParseUtil.rgbStringToInts(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_RGB2));
+                    int[] rgb3 = ParseUtil.rgbStringToInts(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_RGB3));
+                    int[] rgb4 = ParseUtil.rgbStringToInts(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_RGB4));
+                    int t = Integer.parseInt(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_T));
+                    int l = Integer.parseInt(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_L));
+                    showFlowControl(new LightDetail(rgb1, rgb2, rgb3, rgb4, t, l));
+                    break;
+                case Code.LIGHT_MODE_L:
+                    Log.d(TAG, "onEventMainThread: MqttReceiveLightModeLEvent");
+                    toggleState(true);
+                    int wl = Integer.parseInt(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_L));
+                    showWhiteControl(new LightDetail(wl));
+                    break;
+                case Code.LIGHT_MODE_RGBL:
+                    Log.d(TAG, "onEventMainThread: MqttReceiveLightModeRGBLEvent");
+                    toggleState(true);
+                    int[] rgb = ParseUtil.rgbStringToInts(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_RGB));
+                    int lValue = Integer.parseInt(functionValuesMap.get(Code.FUNCTION_MAP_LOCAL_L));
+                    showRGBLControl(new LightDetail(rgb, lValue));
+                    break;
+            }
         }
-
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
-    public void onEventMainThread(MqttReceiveLightModePowerEvent event) {
-        Log.d(TAG, "onEventMainThread: MqttReceiveLightModePowerEvent");
-        mHandler.removeCallbacks(mRunnable);
-        btnLightPower.setClickable(true);
-        toggleState(false);
-    }
 
 }

@@ -22,7 +22,6 @@ public class EhomeResource {
     public static final int[] IC_AVATAR = new int[]{R.drawable.ic_avatar};
     public static final int[] IC_CANCEL= new int[]{R.drawable.ic_cancel};
     public static final int[] IC_CHANGE = new int[]{R.drawable.ic_change};
-    public static final int[] IC_CHECK_MARK= new int[]{R.drawable.ic_check_mark};
     public static final int[] IC_CLOSE= new int[]{R.drawable.ic_close};
     public static final int[] IC_CONFIRM_NETWORK= new int[]{R.drawable.ic_confirm_network};
     public static final int[] IC_COUNTDOWN= new int[]{R.drawable.ic_countdown};
@@ -64,7 +63,6 @@ public class EhomeResource {
     public static final int[] IC_SWITCH_PRESSED= new int[]{R.drawable.ic_switch_pressed};
     public static final int[] IC_WHITE_PRESSED= new int[]{R.drawable.ic_white_pressed};
     public static final int[] IC_WHITE_NORMAL= new int[]{R.drawable.ic_white_normal};
-    public static final int[] LOGIN_ERROR_ICON= new int[]{R.drawable.login_error_icon};
 
     /**
      * Selector

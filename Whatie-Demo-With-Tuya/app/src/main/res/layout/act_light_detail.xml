@@ -19,7 +19,7 @@
         android:textAllCaps="false"/>
 
     <LinearLayout
-        android:id="@+id/rl_navigation_tab"
+        android:id="@+id/ll_navigation_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/padding_2dp"
@@ -122,8 +122,8 @@
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_theme_background"
-        android:layout_below="@id/rl_navigation_tab" />
+        android:layout_below="@+id/ll_navigation_tab"
+        android:background="@color/main_theme_background" />
 
     <View
         android:id="@+id/view_shelter"

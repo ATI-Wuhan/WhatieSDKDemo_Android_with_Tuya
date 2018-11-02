@@ -38,7 +38,7 @@ public class IntegrationAmazonActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        tvTitle.setText(getString(R.string.Use_Echo));
+        tvTitle.setText(getString(R.string.Use_Alexa));
     }
 
     @Override

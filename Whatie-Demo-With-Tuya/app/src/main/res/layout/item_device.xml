@@ -38,16 +38,22 @@
         android:layout_alignTop="@+id/iv_device_icon"
         android:text="device_name"
         android:textSize="@dimen/text_18sp" />
-    <com.whatie.ati.androiddemo.widget.togglebutton.ToggleButton
+    <com.whatie.ati.androiddemo.widget.SwitchButton
         android:id="@+id/sw_device_item"
         android:layout_width="@dimen/device_item_switch_width"
         android:layout_height="@dimen/device_item_switch_height"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/padding_8dp"
-        app:tbOnColor="@color/main_theme_blue" />
+        app:sb_background="@color/main_theme_button_gray"
+        app:sb_border_width="0dp"
+        app:sb_checked_color="@color/main_theme_blue"
+        app:sb_enable_effect="false"
+        app:sb_show_indicator="false"
+        app:sb_uncheck_color="@color/main_theme_button_gray"  />
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/padding_15dp"
         android:layout_below="@id/iv_device_icon"
