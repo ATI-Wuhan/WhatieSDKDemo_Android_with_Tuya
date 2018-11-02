@@ -1,10 +1,11 @@
 
-## WahtieSDK for Android v1.4.6c updated at 2018-10-25
+## WahtieSDK for Android v1.5.0c updated at 2018-11-02
 
 ```
 What's new:
-1.Solve the issue that multiple apps using this SDK cannot be opened at the same time
-2.Solve the issue of starting the Service in the background
+1.Add some instructions on the use of the bulb.
+2.Add a new reminder event for device status changes(recommended).
+3.Add a common function to control devices using dps map(This method will support future devices).
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
@@ -506,8 +507,22 @@ You can initialize your device once you have a successful device binding (i.e., 
 
 ## 5. Device
 
-### 5.1 OnOff device
-You can turn on/off the device by the following method:
+### 5.1 Control device(This method will support future devices)
+Common function to control devices using dps maps.
+```java
+/** * 
+    * @param devId
+    * @param dps        dps map
+    * @param protocol   protocol number
+     */
+    public void updateDeviceStatus(String devId, int protocol, HashMap dps) {
+        SendInst.getINSTANCE().updateDeviceStatus(devId, protocol, dps);
+    }
+```
+
+
+### 5.2 OnOff outlet
+You can turn on/off the outlet by the following method:
 
 ```java
 /**  * Turn on or turn off outlets.  
@@ -518,7 +533,7 @@ You can turn on/off the device by the following method:
 
 ```
 
-### 5.2 Rename device
+### 5.3 Rename device
 The device name can be renamed by:
 
 ```java
@@ -549,7 +564,7 @@ The device name can be renamed by:
 ```
 
 
-### 5.3 Remove device
+### 5.4 Remove device
 You can remove your device. If the device is removed, the device is reset to network-pending state after connecting wifi network next time.
 
 ```java
@@ -577,7 +592,7 @@ You can remove your device. If the device is removed, the device is reset to net
     });
 
 ```
-### 5.4 Update Light Brightness
+### 5.5 Update Light Brightness
 In white mode, you can adjust the brightness of the light.
 ```java
 /**  *  
@@ -587,7 +602,7 @@ In white mode, you can adjust the brightness of the light.
 public void updateLightBrightness(String devId,int lValue);
 
 ```
-### 5.5 Update Light RGBL（updated 2018/6/30）
+### 5.6 Update Light RGBL（updated 2018/6/30）
 In monochromatic light mode, you can choose the color of the light and adjust the brightness of the light. 
 ```java
 /**  *  
@@ -599,7 +614,7 @@ public void updateLightRGBL(String devId, int[ ] rgb, int lValue);
 
 ```
 The rgb array is a three-bit array. The three-bit values of the array are r, g, b, and the color value ranges from 0-255.
-### 5.6 Update Light Power
+### 5.7 Update Light Power
 You can set the light on and off, you can turn on or to turn off the light bulb.
 ```java
 /**  *  
@@ -609,7 +624,7 @@ You can set the light on and off, you can turn on or to turn off the light bulb.
 public void updateLightPower(String devId, boolean willStatus);
 
 ```
-### 5.7 Set Light Flow（updated 2018/6/30）
+### 5.8 Set Light Flow（updated 2018/6/30）
 You can set the mode of the lamp to the streamer mode. In this mode, you can select which of the four colors the lights are and set the interval between the appearance of the four colors. 
 ```java
 /**  *  
@@ -624,14 +639,14 @@ You can set the mode of the lamp to the streamer mode. In this mode, you can sel
 public void setLightFlow(String devId, int[ ] rgb1, int[ ] rgb2, int[ ] rgb3, int[ ] rgb4,int tValue,int lValue);
 
 ```
-### 5.8 Resubscribe DeviceTopic 
+### 5.9 Resubscribe DeviceTopic 
 You must use this interface, which is used to get device reservation information.
 ```java
 public void reSubscribeDeviceTopic(String devId)；
 
 ```
 
-### 5.9 Set device to a room (updated 2018/8/18)
+### 5.10 Set device to a room (updated 2018/8/18)
 Set a device directly to the room with the specified name.If the room does not exist, create the room with the name and set the device in.
 ```java
 /**
@@ -665,14 +680,34 @@ Set a device directly to the room with the specified name.If the room does not e
 ```java
 private Device device; 
 private List<FunctionPoint> functionList; 
-private HashMap<String, String> functionValuesMap;  //Code.FUNCTION_MAP_KEY 
+private HashMap<String, String> functionValuesMap; // Used to get the current status of the device.
 private String homeName; 
 private int homeId; 
 private String roomName; 
+private String productName; // Product type of the device
 private int roomId;
 private boolean host; 
 private boolean hasCountDown;
 ```
+The possible values for this variable are as follows:
+    Code.PRODUCT_TYPE_RGBLIGHT, rgb light bulb;
+    Code.PRODUCT_TYPE_PLUG, outlet;
+    Code.PRODUCT_TYPE_MONOLIGHT, white light bulb;
+The fields used in functionValuesMap to get the status of the device are as follows:
+    Code.FUNCTION_MAP_LOCAL_POWER, power status of the device;
+    Code.FUNCTION_MAP_LOCAL_LIGHTMODE, current lighting mode of light bulb;
+    (White color mode : LIGHT_MODE_L; single RGB color mode : LIGHT_MODE_RGBL; flowing color mode : LIGHT_MODE_FLOW)
+    Code.FUNCTION_MAP_LOCAL_L, current brightness value of the bulb;
+    Code.FUNCTION_MAP_LOCAL_RGB, RGB color value in single color light mode;
+    (The value is in the following format: "R_G_B", E.g : 101_155_255)
+    Code.FUNCTION_MAP_LOCAL_RGB1, first RGB color value in flowing light mode;
+    Code.FUNCTION_MAP_LOCAL_RGB2, second RGB color value in flowing light mode;
+    Code.FUNCTION_MAP_LOCAL_RGB3, third RGB color value in flowing light mode;
+    Code.FUNCTION_MAP_LOCAL_RGB4, fouth RGB color value in flowing light mode;
+    Code.FUNCTION_MAP_LOCAL_T, time interval between two colors in flowing light mode;
+
+<font color="#dd0000">All of these values are in String type, you need to convert the data to the type you need, detailed usage can be viewed in the demo code.</font><br />
+    
 The outlet contains the following properties:
   "power";
 The light bulb contains the following properties:
@@ -1045,11 +1080,13 @@ All events meanings can be found in the corresponding class file. Please check t
 
 
 ### Turn on event
+<font color="#dd0000">This event is still available now, but we recommend using DeviceStatusNotifyEvent instead.</font><br />
 ```java
 @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true) public void onEventMainThread(MqttReceiveOnEvent event) {}
 ```
 
 ### Turn off event
+<font color="#dd0000">This event is still available now, but we recommend using DeviceStatusNotifyEvent instead.</font><br />
 ```java
 @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true) public void onEventMainThread(MqttReceiveOffEvent event) {}
 
@@ -1084,14 +1121,14 @@ SDK now send this event once device was reset manually by holding the power butt
 ```
 
 ### Shared device: turn on event
-
+<font color="#dd0000">This event is still available now, but we recommend using DeviceStatusNotifyEvent instead.</font><br />
 ```java
 @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true) public void onEventMainThread(MqttReceiveSharedOnEvent event) {}
 
 ```
 
 ### Shared device: turn off event
-
+<font color="#dd0000">This event is still available now, but we recommend using DeviceStatusNotifyEvent instead.</font><br />
 ```java
 @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true) public void onEventMainThread(MqttReceiveSharedOffEvent event) {}
 
@@ -1150,31 +1187,24 @@ SDK now send this event once device was reset manually by holding the power butt
 ```
 ### Data model
 
-#### MqttReceiveLightModeEvent
+#### DeviceStatusNotifyEvent
+<font color="#dd0000">This event is sent when all types of devices change state. We recommend that the status change of the outlet is also handled by this event. Detailed usage can be viewed in the demo code.</font><br />
 ```java
-private String devId; 
-private int[] rgb; 
-private int[] rgb1; 
-private int[] rgb2; 
-private int[] rgb3; 
-private int[] rgb4; 
-private int tValue; 
-private int lValue; 
-private int lightMode; 
-private int index; 
-
+/**
+ * All current state of the device is stored in the functionValuesMap property of mDeviceVo.
+ * You can get a Map that saves the state of the device by calling getFunctionValuesMap().
+ */
+private DeviceVo mDeviceVo;
+/**
+ * List type in which the device is located.
+ * 1.DEVICES_LIST(mDeviceVos)
+ * 2.SHARED_DEVICES_LIST(mSharedDeviceVos)
+ * 3.SHARING_DEVICES_LIST(mSharingDeviceVos)
+ */
+private ListType listType;
+private int index;
 ```
-The parameters in the monochromatic light mode are devId, rgb, lValue, lightMode, index;
-Some parameters in white mode are devId, lValue, lightMode, index;
-Streaming mode parameters are devId, rgb1, rgb2, rgb3, rgb4, tValue, lValue, lightMode, index.
-#### MqttReceiveLightModePowerEvent
-```java
-private String devId; 
-private boolean  status; 
-private int index; 
 
-```
-Light off mode parameters，status=false.
 ## Welcome to contact us:
 * Android SDK Contributors: Zheng Li, Pan Zhao, Shiwen Ning
 * Email : bxy3000@163.com, whatie@qq.com
