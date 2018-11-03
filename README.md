@@ -3,7 +3,7 @@
 
 ```
 What's new:
-1.Add some instructions on the use of the bulb.
+1.Add some instructions on the use of the light bulbs, including RGB light and Monochrome light bulbs.
 2.Add a new reminder event for device status changes(recommended).
 3.Add a common function to control devices using dps map(This method will support future devices).
 ```
