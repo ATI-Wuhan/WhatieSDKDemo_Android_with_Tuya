@@ -626,7 +626,7 @@ public void updateLightPower(String devId, boolean willStatus);
 
 ```
 ### 5.8 Set Light Flow（updated 2018/6/30）
-You can set the mode of the ligth bulb into the smooth color mode. In this mode, you can select which of the four colors the lights are and set the interval between the appearance of the four colors. 
+You can set the mode of the light bulb into the smooth color mode. In this mode, you can select which of the four colors the lights are and set the interval between the appearance of the four colors. 
 ```java
 /**  *  
  * @param devId    device's devId 
