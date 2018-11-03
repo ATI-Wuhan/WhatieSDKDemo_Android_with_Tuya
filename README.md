@@ -8,7 +8,7 @@ What's new:
 3.Add a common function to control devices using dps map(This method will support future devices).
 ```
 
-WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
+WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW or Monochrome light bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
 
 [![](https://github.com/ATI-Wuhan/WhatieSDK_Android/blob/master/images/1small.jpg)](https://github.com/ATI-Wuhan/WhatieSDK_Android/blob/master/images/1.jpg)
 [![](https://github.com/ATI-Wuhan/WhatieSDK_Android/blob/master/images/2small.jpg)](https://github.com/ATI-Wuhan/WhatieSDK_Android/blob/master/images/2.jpg)
@@ -613,7 +613,8 @@ In monochromatic light mode, you can choose the color of the light and adjust th
 public void updateLightRGBL(String devId, int[ ] rgb, int lValue);
 
 ```
-The rgb array is a three-bit array. The three-bit values of the array are r, g, b, and the color value ranges from 0-255.
+The RGB array is a three-bit array. The three-bit values of the array are R, G, B, and the color value ranges from 0-255.
+
 ### 5.7 Update Light Power
 You can set the light on and off, you can turn on or to turn off the light bulb.
 ```java
@@ -625,7 +626,7 @@ public void updateLightPower(String devId, boolean willStatus);
 
 ```
 ### 5.8 Set Light Flow（updated 2018/6/30）
-You can set the mode of the lamp to the streamer mode. In this mode, you can select which of the four colors the lights are and set the interval between the appearance of the four colors. 
+You can set the mode of the ligth bulb into the smooth color mode. In this mode, you can select which of the four colors the lights are and set the interval between the appearance of the four colors. 
 ```java
 /**  *  
  * @param devId    device's devId 
