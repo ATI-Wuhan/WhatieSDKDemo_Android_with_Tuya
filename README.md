@@ -1,11 +1,12 @@
 
-## WahtieSDK for Android v1.5.0c updated at 2018-11-02
+## WahtieSDK for Android v1.5.1c updated at 2018-11-05
 
 ```
 What's new:
 1.Add some instructions on the use of the light bulbs, including RGB light and Monochrome light bulbs.
 2.Add a new reminder event for device status changes(recommended).
 3.Add a common function to control devices using dps map(This method will support future devices).
+4.Fixed an issue.
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW or Monochrome light bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
@@ -1192,18 +1193,18 @@ SDK now send this event once device was reset manually by holding the power butt
 <font color="#dd0000">This event is sent when all types of devices change state. We recommend that the status change of the outlet is also handled by this event. Detailed usage can be viewed in the demo code.</font><br />
 ```java
 /**
- * All current state of the device is stored in the functionValuesMap property of mDeviceVo.
- * You can get a Map that saves the state of the device by calling getFunctionValuesMap().
- */
-private DeviceVo mDeviceVo;
-/**
  * List type in which the device is located.
  * 1.DEVICES_LIST(mDeviceVos)
  * 2.SHARED_DEVICES_LIST(mSharedDeviceVos)
  * 3.SHARING_DEVICES_LIST(mSharingDeviceVos)
+ * You can get an DeviceVo.class object through listType and index, All current state of the device is stored in the 
+ * functionValuesMap property of that object. 
+ * You can get a Map that saves the state of the device by calling getFunctionValuesMap().
+ * Detailed usage can refer to the demo code.
  */
 private ListType listType;
 private int index;
+private String devId;
 ```
 
 ## Welcome to contact us:

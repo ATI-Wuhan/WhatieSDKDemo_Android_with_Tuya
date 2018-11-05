@@ -459,8 +459,13 @@ public class DeviceDetailActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
     public void onEventMainThread(DeviceStatusNotifyEvent event) {
         Log.d(TAG, "onEventMainThread: MqttReceiveStripStatusEvent");
-        if(event.getmDeviceVo().getDevice().getDevId().equals(deviceVo.getDevice().getDevId())) {
-            state = Boolean.parseBoolean(event.getmDeviceVo().getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER));
+        if(event.getDevId().equals(deviceVo.getDevice().getDevId())) {
+            if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.DEVICES_LIST)) {
+                deviceVo.setFunctionValuesMap(EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            } else if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.SHARED_DEVICES_LIST)) {
+                deviceVo.setFunctionValuesMap(EHome.getInstance().getmSharedDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            }
+            state = Boolean.parseBoolean(deviceVo.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_POWER));
             toggleState(state);
             rlDeviceDetailSwitch.setEnabled(true);
             mHandler.removeCallbacks(mRunnable);

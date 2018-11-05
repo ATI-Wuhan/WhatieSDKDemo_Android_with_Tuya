@@ -376,8 +376,12 @@ public class LightDetailActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
     public void onEventMainThread(DeviceStatusNotifyEvent event) {
-        if(event.getmDeviceVo().getDevice().getDevId().equals(mDeviceVo.getDevice().getDevId())) {
-            mDeviceVo = event.getmDeviceVo();
+        if(event.getDevId().equals(mDeviceVo.getDevice().getDevId())) {
+            if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.DEVICES_LIST)) {
+                mDeviceVo.setFunctionValuesMap(EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            } else if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.SHARED_DEVICES_LIST)) {
+                mDeviceVo.setFunctionValuesMap(EHome.getInstance().getmSharedDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            }
             mHandler.removeCallbacks(mRunnable);
             btnLightPower.setClickable(true);
             functionValuesMap = mDeviceVo.getFunctionValuesMap();

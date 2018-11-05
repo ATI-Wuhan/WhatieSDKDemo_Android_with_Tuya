@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.d9lab.ati.whatiesdk.ehome.EHome;
 import com.d9lab.ati.whatiesdk.event.DeviceStatusNotifyEvent;
 import com.whatie.ati.androiddemo.R;
 import com.whatie.ati.androiddemo.utils.ToastUtil;
@@ -223,11 +224,17 @@ public class FlowColorDetailActivity extends BaseActivity implements View.OnClic
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 1, sticky = true)
     public void onEventMainThread(DeviceStatusNotifyEvent event) {
-        if(event.getmDeviceVo().getDevice().getDevId().equals(mDeviceVo.getDevice().getDevId()) &&
-                Integer.parseInt(event.getmDeviceVo().getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_LIGHTMODE)) == Code.LIGHT_MODE_FLOW) {
-            mHandler.removeCallbacks(mRunnable);
-            btnFlowDetailApply.setClickable(true);
-            ToastUtil.showShort(mContext, R.string.set_flow_success);
+        if(event.getDevId().equals(mDeviceVo.getDevice().getDevId())) {
+            if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.DEVICES_LIST)) {
+                mDeviceVo.setFunctionValuesMap(EHome.getInstance().getmDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            } else if (event.getListType().equals(DeviceStatusNotifyEvent.ListType.SHARED_DEVICES_LIST)) {
+                mDeviceVo.setFunctionValuesMap(EHome.getInstance().getmSharedDeviceVos().get(event.getIndex()).getFunctionValuesMap());
+            }
+            if(Integer.parseInt(mDeviceVo.getFunctionValuesMap().get(Code.FUNCTION_MAP_LOCAL_LIGHTMODE)) == Code.LIGHT_MODE_FLOW){
+                mHandler.removeCallbacks(mRunnable);
+                btnFlowDetailApply.setClickable(true);
+                ToastUtil.showShort(mContext, R.string.set_flow_success);
+            }
         }
     }
 }
