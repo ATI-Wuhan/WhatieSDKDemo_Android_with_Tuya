@@ -1,12 +1,13 @@
 
-## WahtieSDK for Android v1.5.1c updated at 2018-11-05
+## WahtieSDK for Android v1.5.2c updated at 2018-11-06
 
 ```
 What's new:
 1.Add some instructions on the use of the light bulbs, including RGB light and Monochrome light bulbs.
 2.Add a new reminder event for device status changes(recommended).
 3.Add a common function to control devices using dps map(This method will support future devices).
-4.Fixed an issue.
+4.Extend the duration of Udp packet transmission during device pairing to increase device pairing success rate.
+5.Added instructions for the light bulb timing feature in README.
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW or Monochrome light bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
@@ -837,16 +838,13 @@ new BaseCallback() { 
 
 ## 7. Timer
 
-### 7.1 Add a timer
-Set a timer to operate the device on some specifical time.Your operation on the device will take effect once the time of the timer arrives.   
-
 **Important Note:**   
 1.loops: @“0000000”, each bit, 0: off, 1: on, representing from left to right: Sunday Saturday Friday Thursday Wednesday Tuesday Monday.  
 2.The timer setting is successful only when <font color=#ff0000>MqttSetTimerSuccessEvent</font> is received, as well as editing.  
 3.The category string of a timer supports up to <font color=#ff0000>20</font> letters.  
-4.If there are two timers contain the same trigger time, the setting will not succeed.
 
-
+### 7.1 Add a timer for outlets
+Set a timer to operate the device on some specifical time.Your operation on the device will take effect once the time of the timer arrives. 
 ```java
 /**  *   
     * @param mContext  
@@ -883,7 +881,7 @@ Set a timer to operate the device on some specifical time.Your operation on the 
         }         
     });
 ```
-### 7.2 Edit timer
+### 7.2 Edit timer for outlets
 
 ```java
 /**  *   
@@ -921,7 +919,107 @@ Set a timer to operate the device on some specifical time.Your operation on the 
         }         
     });
 ```
-### 7.3 Update timer status
+
+### 7.3 Add a timer for any device
+This method is a general timer setting method. You can set timer by setting the dps parameter.
+
+```java
+    /**
+     * @param tag
+     * @param category
+     * @param deviceId
+     * @param timerType
+     * @param hour
+     * @param min
+     * @param dps
+     * @param baseCallback
+     */
+    EHomeInterface.getINSTANCE().addTimer(mContext, deviceId, timetype, finishHour, finishMin, dps, new BaseCallback() {             
+        @Override             
+        public void onSuccess(Response<BaseResponse> response) {                             
+        }              
+        @Override             
+        public void onError(Response<BaseResponse> response) {                 
+            super.onError(response);             
+        }         
+    });
+```
+**dps sample for light bulb:**
+```java
+    // Timer of light bulb only supports switch operation
+	HashMap<String, Object> dps = new HashMap<>();
+            dps.put(Code.LIGHT_MODE, Code.LIGHT_MODE_POWER);
+            dps.put(Code.LIGHT_DPS_STATUS, String.valueOf(true));
+```
+
+**Timer with category(updated 2018/6/29):**
+```java
+    /**
+     * @param tag
+     * @param category
+     * @param deviceId
+     * @param timerType
+     * @param hour
+     * @param min
+     * @param dps
+     * @param baseCallback
+     */
+    EHomeInterface.getINSTANCE().addTimer(mContext, category, deviceId, timetype, finishHour, finishMin, dps, new BaseCallback() {             
+        @Override             
+        public void onSuccess(Response<BaseResponse> response) {                             
+        }              
+        @Override             
+        public void onError(Response<BaseResponse> response) {                 
+            super.onError(response);             
+        }         
+    });
+```
+### 7.4 Edit timer for any device
+
+```java
+    /**
+     * @param tag
+     * @param clockId
+     * @param timerType
+     * @param hour
+     * @param min
+     * @param dps
+     * @param baseCallback
+     */
+    EHomeInterface.getINSTANCE().editTimer(mContext, clockId, timetype, finishHour, finishMin, dps, new BaseCallback() {             
+        @Override             
+        public void onSuccess(Response<BaseResponse> response) {                             
+        }              
+        @Override             
+        public void onError(Response<BaseResponse> response) {                 
+            super.onError(response);             
+        }         
+    });
+```
+**Edit timer with category:**
+```java
+    /**
+     * @param tag
+     * @param category
+     * @param clockId
+     * @param timerType
+     * @param hour
+     * @param min
+     * @param dps
+     * @param baseCallback
+     */
+    EHomeInterface.getINSTANCE().editTimer(mContext, category, clockId, timetype, finishHour, finishMin, dps, new BaseCallback() {             
+        @Override             
+        public void onSuccess(Response<BaseResponse> response) {                             
+        }              
+        @Override             
+        public void onError(Response<BaseResponse> response) {                 
+            super.onError(response);             
+        }         
+    });
+```
+
+### 7.5 Update timer status
 Update the status of a specified timer under a specified device, i.e., 0: off, 1: on, using the following method:
 
 ```java
@@ -943,7 +1041,7 @@ Update the status of a specified timer under a specified device, i.e., 0: off, 1
     });
 ```
 
-### 7.4 Remove a timer
+### 7.6 Remove a timer
 Delete a specified timer under a specified device by:
 
 ```java
@@ -965,7 +1063,7 @@ Delete a specified timer under a specified device by:
 
 ```
 
-### 7.5 Obtain all timers of a device
+### 7.7 Obtain all timers of a device
 
 Obtain all timers under a specified device by:
 

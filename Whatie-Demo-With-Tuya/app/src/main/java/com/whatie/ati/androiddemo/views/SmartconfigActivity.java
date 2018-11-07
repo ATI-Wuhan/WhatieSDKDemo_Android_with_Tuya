@@ -76,7 +76,7 @@ public class SmartconfigActivity extends BaseActivity {
     @BindView(R.id.rpb_device_adding_progressbar)
     RingProgressBar rpbDeviceAddingProgressbar;
 
-    public static final long TOTAL_TIME = 60000;
+    public static final long TOTAL_TIME = 200000;
 
     private MaterialDialog ensureCancelDialog;
     private MaterialDialog failedDialog;
@@ -128,7 +128,7 @@ public class SmartconfigActivity extends BaseActivity {
         password = getIntent().getStringExtra(Code.PASSWORD);
         apBssid = mWifiAdmin.getWifiConnectedBssid();
         new EsptouchAsyncTask3().execute(apSsid, apBssid, apPassword, "1");
-        mCountDownTimer = new CountDownTimer(TOTAL_TIME, 600) {
+        mCountDownTimer = new CountDownTimer(TOTAL_TIME, 2000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (rpbDeviceAddingProgressbar != null) {
