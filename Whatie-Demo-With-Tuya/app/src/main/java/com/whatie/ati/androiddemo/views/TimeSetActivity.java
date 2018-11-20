@@ -379,7 +379,7 @@ public class TimeSetActivity extends BaseActivity {
             HashMap<String, Object> dps = new HashMap<>();
             dps.put(Code.LIGHT_MODE, Code.LIGHT_MODE_POWER);
             dps.put(Code.LIGHT_DPS_STATUS, String.valueOf(powerState));
-            EHomeInterface.getINSTANCE().addTimer(mContext, deviceId, timerType, hour, min, dps, new BaseCallback() {
+            EHomeInterface.getINSTANCE().addTimer(mContext, TAG_TEST, deviceId, timerType, hour, min, dps, new BaseCallback() {
                 @Override
                 public void onSuccess(Response<BaseResponse> response) {
                     if (response.body().isSuccess()) {

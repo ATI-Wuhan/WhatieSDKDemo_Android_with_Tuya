@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "27.0.3"
     lintOptions {
         abortOnError false
         disable 'InvalidPackage'
@@ -73,7 +73,7 @@ greendao {
 }
 
 dependencies {
-    compile(name: 'WhatieSDK-1.5.2c', ext: 'aar'){
+    compile(name: 'WhatieSDK-1.5.3c', ext: 'aar'){
         exclude module: 'netty-all-5.0.0.Alpha2.jar'
     }
     compile(name: 'tuyasmart-1.13.10', ext:'aar')
@@ -108,5 +108,5 @@ dependencies {
     compile 'me.drakeet.materialdialog:library:1.3.1'
     compile 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
     compile 'org.greenrobot:greendao:3.2.2'
-
+    implementation group: 'net.time4j', name: 'time4j-android', version: '4.0-2018g'
 }

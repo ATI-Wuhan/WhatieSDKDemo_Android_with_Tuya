@@ -1,5 +1,5 @@
 
-## WahtieSDK for Android v1.5.2c updated at 2018-11-06
+## WahtieSDK for Android v1.5.3c updated at 2018-11-20
 
 ```
 What's new:
@@ -8,6 +8,8 @@ What's new:
 3.Add a common function to control devices using dps map(This method will support future devices).
 4.Extend the duration of Udp packet transmission during device pairing to increase device pairing success rate.
 5.Added instructions for the light bulb timing feature in README.
+6.In order to solve the time zone issue, we need to add the following configuration code to build.gradle.
+   (implementation group: 'net.time4j', name: 'time4j-android', version: '4.0-2018g')
 ```
 
 WhatieSDK is an SDK provided by ATI TECHNOLOGY (WUHAN) CO.,LTD. for the 3rd party accessing to our ATI IoT cloud platform easily and quickly. Using this SDK, developers can do almost all funcation points on electrical outlets and RGBW or Monochrome light bulbs, such as user registration/login/logout, smart configration, add/share/remove devices, device control, timing countdown, timer, etc. 
@@ -74,6 +76,7 @@ compile 'com.alibaba:fastjson:1.2.20'      //json2object
 compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'     //about mqtt
 compile 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'   //about mqtt
 compile 'org.greenrobot:eventbus:3.0.0'       // communations among threads
+implementation group: 'net.time4j', name: 'time4j-android', version: '4.0-2018g'   //support for timezone
 ```
 
 ### Configure AndroidManifest.xml
